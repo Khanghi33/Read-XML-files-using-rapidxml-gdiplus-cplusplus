@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/SVGDemo/.vs/SVGDemo/FileContentIndex
+/SVGDemo/.vs/SVGDemo/v17/Browse.VC.db
+/SVGDemo/.vs/SVGDemo/v17/Browse.VC.opendb
