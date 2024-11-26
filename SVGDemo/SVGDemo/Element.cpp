@@ -7,6 +7,10 @@ using namespace Gdiplus;
 //Function parse string rbg(a, b, c) to usable data
 int* parseColor(string stroke) {
 	int* Color = new int[3];
+    if (stroke == "") {
+        Color[0] = Color[1] = Color[2] = 0;
+        return Color;
+    }
 	int start = stroke.find('(');
 	int end = stroke.find(')');
 	stringstream ss(stroke.substr(start + 1, end - start - 1));
@@ -708,7 +712,7 @@ Color Path::getColor()
     return *this->color;
 }
 
-void Path::draw(HDC hdc)
+VOID Path::Draw(HDC hdc)
 {
     Graphics graphics(hdc);
     Pen* pen = new Pen(*this->color, 1);
@@ -719,4 +723,88 @@ void Path::draw(HDC hdc)
     graphics.FillPath(brush, &graphicsPath);
     delete pen;
     delete brush;
+}
+
+vector<Shape*> SVGParser::getShapes()
+{
+    return this->shapes;
+}
+
+SVGParser::SVGParser(string filename)
+{
+    this->filename = filename;
+}
+
+void SVGParser::parse()
+{
+    // Read XML
+    xml_document<> doc;
+    xml_node<>* rootNode;
+    // Read the xml file into a vector
+    ifstream file(filename);
+    vector<char> buffer((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
+    buffer.push_back('\0');
+    // Parse the buffer using the xml file parsing library into doc 
+    doc.parse<0>(&buffer[0]);
+
+    rootNode = doc.first_node();
+    xml_node<>* node = rootNode->first_node();
+    while (node != NULL) {
+        string nodeName = node->name();
+        if (nodeName == "polygon") {
+            POLYGON* poly = new POLYGON(node);
+            shapes.push_back(poly);
+        }
+        else if (nodeName == "polyline") {
+            POLYLINE* poly = new POLYLINE(node);
+            shapes.push_back(poly);
+        }
+        else if (nodeName == "circle") {
+            Circle* cir = new Circle(node);
+            shapes.push_back(cir);
+        }
+        else if (nodeName == "text") {
+            TXT* text = new TXT(node);
+            shapes.push_back(text);
+        }
+        else if (nodeName == "rect") {
+            RECTANGLES* rect = new RECTANGLES(node);
+            shapes.push_back(rect);
+        }
+        else if (nodeName == "line") {
+            LINE* line = new LINE(node);
+            shapes.push_back(line);
+        }
+        else if (nodeName == "ellipse") {
+            ELIP* elip = new ELIP(node);
+            shapes.push_back(elip);
+        }
+        else if (nodeName == "path") {
+            Path* path = new Path(node);
+            shapes.push_back(path);
+            /*ofstream fout("log.txt");
+            vector<string> data = path->getData();
+            for (auto it : data) {
+                fout << it << endl;
+            }
+            Color color = path->getColor();
+            fout << "r: " << color.GetR() << " g:" << color.GetG() << " b:" << color.GetB() << " a:" << color.GetA();*/
+            /*path->draw(hdc);
+            path->~Path();*/
+        }
+        node = node->next_sibling();
+    }
+}
+
+Render::Render(vector<Shape*> shapes, HDC* hdc)
+{
+    this->shapes = shapes;
+    this->hdc = hdc;
+}
+
+void Render::GDIRender()
+{
+    for (auto shape : shapes) {
+        shape->Draw(*hdc);
+    }
 }

@@ -1,0 +1,25 @@
+﻿  Element.cpp
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(14,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(15,10): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(32,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(89,41): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(92,47): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(95,50): warning C4267: 'argument': conversion from 'size_t' to 'INT', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(96,48): warning C4267: 'argument': conversion from 'size_t' to 'INT', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(150,37): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(153,44): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(156,46): warning C4267: 'argument': conversion from 'size_t' to 'INT', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(157,50): warning C4267: 'argument': conversion from 'size_t' to 'INT', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(203,32): warning C4244: 'argument': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(204,24): warning C4244: 'argument': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(204,21): warning C4244: 'argument': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(207,63): warning C4244: 'argument': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(207,58): warning C4244: 'argument': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(255,37): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(257,44): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(291,37): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(325,37): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(327,44): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(363,37): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(365,44): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+  SVGDemo.vcxproj -> C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\x64\Debug\SVGDemo.exe

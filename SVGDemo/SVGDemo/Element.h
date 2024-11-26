@@ -14,7 +14,12 @@ using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;
 
-class POLYGON {
+class Shape {
+public:
+	virtual VOID Draw(HDC) = 0;
+};
+
+class POLYGON : public Shape {
 private: 
 	string points;
 	string stroke;
@@ -30,7 +35,7 @@ public:
 	VOID Draw(HDC hdc);
 };
 
-class POLYLINE {
+class POLYLINE : public Shape {
 private:
 	string points;
 	string stroke;
@@ -46,7 +51,7 @@ public:
 	VOID Draw(HDC hdc);
 };
 
-class TXT {
+class TXT : public Shape {
 private:
 	string content;
 	int x;
@@ -62,7 +67,7 @@ public:
 	VOID Draw(HDC hdc);
 };
 
-class Circle {
+class Circle : public Shape {
 private:
 	int cx;
 	int cy;
@@ -79,7 +84,7 @@ public:
 	VOID Draw(HDC hdc);
 };
 
-class LINE {
+class LINE : public Shape {
 private:
 	int x1, y1, x2, y2;
 	string stroke;
@@ -91,7 +96,7 @@ public:
 	VOID Draw(HDC hdc);
 };
 
-class RECTANGLES {
+class RECTANGLES : public Shape {
 private:
 	int x, y, height, width;
 	string stroke;
@@ -104,7 +109,7 @@ public:
 	VOID Draw(HDC hdc);
 };
 
-class ELIP {
+class ELIP : public Shape {
 	int x, y, rx, ry;
 	string stroke;
 	string fill;
@@ -116,7 +121,7 @@ public:
 	VOID Draw(HDC hdc);
 };
 
-class Path
+class Path : public Shape
 {
 private:
 	std::vector<std::string> data;
@@ -130,7 +135,25 @@ public:
 	unsigned int hexToARGB(const std::string& hexColor);
 	void setColor(std::string hexColor);
 	std::vector<std::string> getData();
-	std::vector<pair<char, vector<PointF>>> getVectorData();
 	Color getColor();
-	void draw(HDC hdc);
+	VOID Draw(HDC hdc);
+};
+
+
+class Render {
+private:
+	vector<Shape*> shapes;
+	HDC* hdc;
+public:
+	Render(vector<Shape*> shapes, HDC* hdc);
+	void GDIRender();
+};
+class SVGParser {
+private:
+	string filename;
+	vector<Shape*> shapes;
+public:
+	vector<Shape*> getShapes();
+	SVGParser(string filename);
+	void parse();
 };
