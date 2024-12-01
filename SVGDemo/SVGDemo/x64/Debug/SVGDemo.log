@@ -22,4 +22,18 @@ C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGD
 C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(327,44): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
 C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(363,37): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
 C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(365,44): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(696,67): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(696,55): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(701,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(702,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(751,63): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(751,51): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(752,24): warning C4244: 'initializing': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(753,24): warning C4244: 'initializing': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(873,67): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(873,55): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(928,63): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(928,51): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(929,24): warning C4244: 'initializing': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\Element.cpp(930,24): warning C4244: 'initializing': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   SVGDemo.vcxproj -> C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\x64\Debug\SVGDemo.exe

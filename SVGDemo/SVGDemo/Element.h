@@ -8,6 +8,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 #include <regex>
 #include <gdiplus.h>
 using namespace std;
@@ -133,6 +134,7 @@ public:
 	void parseElement(std::string d);
 	void createGraphicsPath(GraphicsPath& graphicsPath);
 	unsigned int hexToARGB(const std::string& hexColor);
+	void parseColor(std::string attribute);
 	void setColor(std::string hexColor);
 	std::vector<std::string> getData();
 	Color getColor();
