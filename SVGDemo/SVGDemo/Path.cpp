@@ -1,8 +1,10 @@
+#include "rapidxml.hpp"
 #include "stdafx.h"
 #include "Path.h"
 using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;
+
 
 Path::~Path()
 {
@@ -11,7 +13,7 @@ Path::~Path()
 
 Path::Path(xml_node<>* node)
 {
-    xml_attribute<>* firstAttribute = node->first_attribute();
+    /*xml_attribute<>* firstAttribute = node->first_attribute();
     while (firstAttribute != NULL) {
         string attributeName = firstAttribute->name();
         string attributeValue = firstAttribute->value();
@@ -21,44 +23,41 @@ Path::Path(xml_node<>* node)
         if (attributeName == "fill") {
             setColor(attributeValue);
         }
+        if (attributeName == "style") {
+            parseColor(attributeValue);
+        }
+        firstAttribute = firstAttribute->next_attribute();
+    }*/
+
+
+
+
+    xml_attribute<>* firstAttribute = node->first_attribute();
+    //Default constructor
+    setStroke("none");
+    setFill("none");
+    setFillOpacity("1");
+    setStrokeWidth("1");
+    setStrokeOpacity("1");
+    //Copy constructor
+    while (firstAttribute != NULL)
+    {
+        string attributeName(firstAttribute->name());
+        string attributeValue(firstAttribute->value());
+        if (attributeName == "d") {
+            parseElement(attributeValue);
+        }
+        else if (attributeName == "fill" || attributeName == "style") setFill(attributeValue);
+        else if (attributeName == "stroke") setStroke(attributeValue);
+        else if (attributeName == "stroke-width") setStrokeWidth(attributeValue);
+        else if (attributeName == "stroke-opacity") setStrokeOpacity(attributeValue);
+        else if (attributeName == "fill-opacity") setFillOpacity(attributeValue);
+        else if (attributeName == "transform") setTransform(attributeValue);
         firstAttribute = firstAttribute->next_attribute();
     }
 }
 
-void Path::parseFile(std::string filename)
-{
-    xml_document<> doc;
-    xml_node<>* rootNode;
-    string svgPath;
 
-    // Read the xml file into a vector
-    ifstream file(filename);
-    vector<char> buffer((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
-    buffer.push_back('\0');
-    // Parse the buffer using the xml file parsing library into doc 
-    doc.parse<0>(&buffer[0]);
-
-    rootNode = doc.first_node();
-    xml_node<>* node = rootNode->first_node();
-
-    while (node != NULL) {
-        string nodeName = node->name();
-        cout << nodeName << endl;
-        xml_attribute<>* firstAttribute = node->first_attribute();
-        while (firstAttribute != NULL) {
-            string attributeName = firstAttribute->name();
-            string attributeValue = firstAttribute->value();
-            if (attributeName == "d") {
-                parseElement(attributeValue);
-            }
-            if (attributeName == "fill") {
-                setColor(attributeValue);
-            }
-            firstAttribute = firstAttribute->next_attribute();
-        }
-        node = node->next_sibling();
-    }
-}
 
 void Path::parseElement(string d)
 {
@@ -74,271 +73,455 @@ void Path::parseElement(string d)
         ++iter;
     }
     data = tokens;
+    ofstream out("data.txt", ios::app);
+    for (auto it : tokens) {
+        out << it << endl;
+    }
 }
-
 
 void Path::createGraphicsPath(GraphicsPath& graphicsPath)
 {
-    PointF currentPoint = PointF{ 0,0 };
-    PointF* lastStartPoint = NULL;
-    ofstream fout("log.txt");
+    PointF currentPoint{ 0,0 };
+    PointF lastControlPoint{ 0, 0 };
+    char lastCommand = 'O';
+    ofstream fout("log.txt", ios::app);
     for (auto it : data) {
         char command = it[0];
+        std::replace(it.begin(), it.end(), ',', ' ');
+        std::istringstream stream(it.substr(1)); // Skip the first character
         if (command == 'C') {
             PointF point1, point2, point3;
-            std::replace(it.begin(), it.end(), ',', ' ');
-            std::istringstream stream(it.substr(1)); // Skip the first character
+
 
             // Parse the six floating point values
-            stream >> point1.X >>  point1.Y >> point2.X >> point2.Y >> point3.X >> point3.Y;
-            graphicsPath.AddBezier(currentPoint, point1, point2, point3);
-            currentPoint = point3;
-            fout << command << " " << point1.X << " " << point1.Y << " " << point2.X << " " << point2.Y << " " << point3.X << " " << point3.Y << endl;
+            while (stream >> point1.X >> point1.Y >> point2.X >> point2.Y >> point3.X >> point3.Y) {
+                graphicsPath.AddBezier(currentPoint, point1, point2, point3);
+                currentPoint = point3;
+                lastControlPoint = point2;
+                fout << command << " " << point1.X << " " << point1.Y << " " << point2.X << " " << point2.Y << " " << point3.X << " " << point3.Y << endl;
+            }
         }
         else if (command == 'c') {
             PointF point1, point2, point3;
-            std::replace(it.begin(), it.end(), ',', ' ');
-            std::istringstream stream(it.substr(1)); // Skip the first character
 
             // Parse the six floating point values
-            stream >> point1.X >> point1.Y >> point2.X >> point2.Y >> point3.X >> point3.Y;
-            point1.X += currentPoint.X;
-            point1.Y += currentPoint.Y;
-            point2.X += currentPoint.X;
-            point2.Y += currentPoint.Y;
-            point3.X += currentPoint.X;
-            point3.Y += currentPoint.Y;
-            graphicsPath.AddBezier(currentPoint, point1, point2, point3);
-
-            currentPoint = point3;
+            while (stream >> point1.X >> point1.Y >> point2.X >> point2.Y >> point3.X >> point3.Y) {
+                point1.X += currentPoint.X;
+                point1.Y += currentPoint.Y;
+                point2.X += currentPoint.X;
+                point2.Y += currentPoint.Y;
+                point3.X += currentPoint.X;
+                point3.Y += currentPoint.Y;
+                graphicsPath.AddBezier(currentPoint, point1, point2, point3);
+                lastControlPoint = point2;
+                currentPoint = point3;
+            }
 
             fout << command << " " << point1.X << " " << point1.Y << " " << point2.X << " " << point2.Y << " " << point3.X << " " << point3.Y << endl;
         }
         else if (command == 'M') {
             PointF point1;
-            std::replace(it.begin(), it.end(), ',', ' ');
-            std::istringstream stream(it.substr(1)); // Skip the first character
-            stream >> point1.X >> point1.Y;
-
-            if (lastStartPoint == NULL) {
-                lastStartPoint = new PointF(point1);
+            int count = 0;
+            while (stream >> point1.X >> point1.Y) {
+                if (count > 0) {
+                    graphicsPath.AddLine(currentPoint, point1);
+                    graphicsPath.CloseFigure();
+                }
+                /*if (lastStartPoint.X == -1.0)
+                lastStartPoint = point1;*/
+                graphicsPath.StartFigure();
+                currentPoint = point1;
+                fout << command << " " << point1.X << " " << point1.Y << endl;
+                count++;
             }
-            currentPoint = point1;
-            fout << command << " " << point1.X << " " << point1.Y << endl;
         }
         else if (command == 'm') {
             PointF point1;
-            std::replace(it.begin(), it.end(), ',', ' ');
-            std::istringstream stream(it.substr(1)); // Skip the first character
-            stream >> point1.X >> point1.Y;
-            point1.X += currentPoint.X;
-            point1.Y += currentPoint.Y;
-            currentPoint = point1;
-            fout << command << " " << point1.X << " " << point1.Y << endl;
+            int count = 0;
+            while (stream >> point1.X >> point1.Y) {
+
+                if (count > 0) {
+                    graphicsPath.AddLine(currentPoint, point1);
+                    graphicsPath.CloseFigure();
+                }
+                if (lastCommand != 'O') {
+                    point1.X += currentPoint.X;
+                    point1.Y += currentPoint.Y;
+                }
+                if (lastCommand == 'M' || lastCommand == 'm') {
+                    graphicsPath.CloseFigure();
+                }
+
+                /*if (lastStartPoint.X == -1.0)
+                lastStartPoint = point1;*/
+                graphicsPath.StartFigure();
+                currentPoint = point1;
+                fout << command << " " << point1.X << " " << point1.Y << endl;
+                count++;
+            }
         }
         else if (command == 'S') {
             PointF point1, point2;
-            std::replace(it.begin(), it.end(), ',', ' ');
-            std::istringstream stream(it.substr(1)); // Skip the first character
 
             // Parse the six floating point values
-            stream >> point1.X >> point1.Y >> point2.X >> point2.Y;
-            graphicsPath.AddBezier(currentPoint, currentPoint, point1, point2);
-            currentPoint = point2;
-            fout << command << " " << point1.X << " " << point1.Y << " " << point2.X << " " << point2.Y << " " << endl;
+            while (stream >> point1.X >> point1.Y >> point2.X >> point2.Y) {
+                if (lastCommand == 'c' || lastCommand == 'C' || lastCommand == 's' || lastCommand == 'S') {
+                    PointF controlPoint = { 2 * currentPoint.X - lastControlPoint.X, 2 * currentPoint.Y - lastControlPoint.Y };
+                    graphicsPath.AddBezier(currentPoint, controlPoint, point1, point2);
+                }
+                else {
+                    graphicsPath.AddBezier(currentPoint, currentPoint, point1, point2);
+                }
+                currentPoint = point2;
+                lastControlPoint = point1;
+                fout << command << " " << point1.X << " " << point1.Y << " " << point2.X << " " << point2.Y << " " << endl;
+            }
+
         }
         else if (command == 's') {
             PointF point1, point2;
-            std::replace(it.begin(), it.end(), ',', ' ');
-            std::istringstream stream(it.substr(1)); // Skip the first character
+
+
 
             // Parse the six floating point values
-            stream >> point1.X >> point1.Y >> point2.X >> point2.Y;
-            point1.X += currentPoint.X;
-            point1.Y += currentPoint.Y;
-            point2.X += currentPoint.X;
-            point2.Y += currentPoint.Y;
-            graphicsPath.AddBezier(currentPoint, currentPoint, point1, point2);
+            while (stream >> point1.X >> point1.Y >> point2.X >> point2.Y) {
+                point1.X += currentPoint.X;
+                point1.Y += currentPoint.Y;
+                point2.X += currentPoint.X;
+                point2.Y += currentPoint.Y;
 
+                if (lastCommand == 'c' || lastCommand == 'C' || lastCommand == 's' || lastCommand == 'S') {
+                    PointF controlPoint = { 2 * currentPoint.X - lastControlPoint.X, 2 * currentPoint.Y - lastControlPoint.Y };
+                    graphicsPath.AddBezier(currentPoint, controlPoint, point1, point2);
+                }
+                else {
+                    graphicsPath.AddBezier(currentPoint, currentPoint, point1, point2);
+                }
+                currentPoint = point2;
+                lastControlPoint = point1;
+                fout << command << " " << point1.X << " " << point1.Y << " " << point2.X << " " << point2.Y << " " << endl;
+            }
 
-            currentPoint = point2;
-
-            fout << command << " " << point1.X << " " << point1.Y << " " << point2.X << " " << point2.Y << endl;
         }
         else if (command == 'L') {
             PointF point1;
-            std::replace(it.begin(), it.end(), ',', ' ');
-            std::istringstream stream(it.substr(1)); // Skip the first character
+
 
             // Parse the six floating point values
-            stream >> point1.X >> point1.Y;
-            graphicsPath.AddLine(currentPoint, point1);
-
-
-            currentPoint = point1;
-            fout << command << " " << point1.X << " " << point1.Y << endl;
+            while (stream >> point1.X >> point1.Y) {
+                graphicsPath.AddLine(currentPoint, point1);
+                currentPoint = point1;
+                fout << command << " " << point1.X << " " << point1.Y << endl;
+            }
         }
         else if (command == 'l') {
             PointF point1;
-            std::replace(it.begin(), it.end(), ',', ' ');
-            std::istringstream stream(it.substr(1)); // Skip the first character
 
             // Parse the six floating point values
-            stream >> point1.X >> point1.Y;
-            point1.X += currentPoint.X;
-            point1.Y += currentPoint.Y;
-            graphicsPath.AddLine(currentPoint, point1);
+            while (stream >> point1.X >> point1.Y) {
+                point1.X += currentPoint.X;
+                point1.Y += currentPoint.Y;
+                graphicsPath.AddLine(currentPoint, point1);
 
 
-            currentPoint = point1;
-            fout << command << " " << point1.X << " " << point1.Y << endl;
+                currentPoint = point1;
+                fout << command << " " << point1.X << " " << point1.Y << endl;
+            }
         }
-        if (command == 'A') {
+        else if (command == 'A') {
+
+
+            double x1, y1; // Start point
+            double x2, y2; // End point
+            double rx, ry; // Radii
+            double xAxisRotation; // Rotation of the ellipse
+            bool largeArcFlag, sweepFlag;
+            RectF boundingRect;  // Output bounding rectangle
+            double startAngle;   // Output start angle
+            double sweepAngle;    // Output sweep angle
+            double dx, dy;
             const float PI = 3.14159265358979323846f;
-            auto degreesToRadians = [&](float degrees) {
+            auto DegreesToRadians = [PI](float degrees) {
                 return degrees * (PI / 180.0f);
-            };
-            float rx, ry, xAxisRotation;
-            int largeArcFlag, sweepFlag;
-            float x1, y1;
-            float x0 = currentPoint.X;
-            float y0 = currentPoint.Y;
-            float cx, cy, startAngle, sweepAngle;
-            std::replace(it.begin(), it.end(), ',', ' ');
-            std::istringstream stream(it.substr(1)); // Skip the first character
-
+                };
+            auto RadiansToDegrees = [PI](double radians) {
+                return radians * (180.0f / PI);
+                };
             // Parse the six floating point values
-            stream >> rx >> ry >> xAxisRotation >> largeArcFlag >> sweepFlag >> x1 >> y1;
+            while (stream >> rx >> ry >> xAxisRotation >> largeArcFlag >> sweepFlag >> dx >> dy) {
+                x1 = currentPoint.X;
+                y1 = currentPoint.Y;
+                x2 = dx;
+                y2 = dy;
+                if (rx == 0 || ry == 0) {
+                    boundingRect = RectF(static_cast<float>(x1), static_cast<float>(y1), 0, 0);
+                    startAngle = sweepAngle = 0;
+                    graphicsPath.AddArc(boundingRect, startAngle, sweepAngle);
+                    return;
+                }
 
-            // Step 1: Compute (x1', y1') in the transformed coordinate space
-            float phi = degreesToRadians(xAxisRotation);
-            float dx2 = (x0 - x1) / 2.0f;
-            float dy2 = (y0 - y1) / 2.0f;
-            float x1p = cos(phi) * dx2 + sin(phi) * dy2;
-            float y1p = -sin(phi) * dx2 + cos(phi) * dy2;
+                // Step 2: Transform endpoints to the ellipse coordinate system
+                double cosRotation = std::cos(DegreesToRadians(xAxisRotation));
+                double sinRotation = std::sin(DegreesToRadians(xAxisRotation));
 
-            // Step 2: Correct the radii if they are too small
-            float rx_sq = rx * rx;
-            float ry_sq = ry * ry;
-            float x1p_sq = x1p * x1p;
-            float y1p_sq = y1p * y1p;
+                double dx = (x1 - x2) / 2.0;
+                double dy = (y1 - y2) / 2.0;
 
-            float lambda = (x1p_sq / rx_sq) + (y1p_sq / ry_sq);
-            if (lambda > 1) {
-                rx *= sqrt(lambda);
-                ry *= sqrt(lambda);
-                rx_sq = rx * rx;
-                ry_sq = ry * ry;
+                double x1Prime = cosRotation * dx + sinRotation * dy;
+                double y1Prime = -sinRotation * dx + cosRotation * dy;
+
+                // Step 3: Correct radii if necessary
+                double rxSq = rx * rx;
+                double rySq = ry * ry;
+                double x1PrimeSq = x1Prime * x1Prime;
+                double y1PrimeSq = y1Prime * y1Prime;
+
+                double radiiCorrection = (x1PrimeSq / rxSq) + (y1PrimeSq / rySq);
+                if (radiiCorrection > 1) {
+                    double scaleFactor = std::sqrt(radiiCorrection);
+                    rx *= scaleFactor;
+                    ry *= scaleFactor;
+                    rxSq = rx * rx;
+                    rySq = ry * ry;
+                }
+
+                // Step 4: Compute center of the ellipse
+                double sign = (largeArcFlag != sweepFlag) ? 1 : -1;
+                double factor = sign * std::sqrt(max(0.0f, ((rxSq * rySq) - (rxSq * y1PrimeSq) - (rySq * x1PrimeSq)) / ((rxSq * y1PrimeSq) + (rySq * x1PrimeSq))));
+
+                double cxPrime = factor * (rx * y1Prime / ry);
+                double cyPrime = factor * -(ry * x1Prime / rx);
+
+                double cx = cosRotation * cxPrime - sinRotation * cyPrime + (x1 + x2) / 2.0;
+                double cy = sinRotation * cxPrime + cosRotation * cyPrime + (y1 + y2) / 2.0;
+
+                // Step 5: Compute angles
+                double theta1 = std::atan2((y1Prime - cyPrime) / ry, (x1Prime - cxPrime) / rx);
+                double deltaTheta = std::atan2((-y1Prime - cyPrime) / ry, (-x1Prime - cxPrime) / rx) - theta1;
+
+                if (!sweepFlag && deltaTheta > 0) {
+                    deltaTheta -= 2 * PI;
+                }
+                else if (sweepFlag && deltaTheta < 0) {
+                    deltaTheta += 2 * PI;
+                }
+
+                // Step 6: Set GDI+ parameters
+                boundingRect = RectF(static_cast<float>(cx - rx), static_cast<float>(cy - ry),
+                    static_cast<float>(2 * rx), static_cast<float>(2 * ry));
+                startAngle = RadiansToDegrees(theta1);
+                sweepAngle = RadiansToDegrees(deltaTheta);
+                graphicsPath.AddArc(boundingRect, startAngle, sweepAngle);
+                REAL x = x2;
+                REAL y = y2;
+                currentPoint = PointF{ x, y };
             }
-
-            // Step 3: Calculate the center of the ellipse (cx', cy') in the transformed space
-            float sign = (largeArcFlag != sweepFlag) ? 1.0f : -1.0f;
-            float sq = ((rx_sq * ry_sq) - (rx_sq * y1p_sq) - (ry_sq * x1p_sq)) / ((rx_sq * y1p_sq) + (ry_sq * x1p_sq));
-            sq = (sq < 0) ? 0 : sq;
-            float coef = sign * sqrt(sq);
-            float cxp = coef * ((rx * y1p) / ry);
-            float cyp = coef * (-(ry * x1p) / rx);
-
-            // Step 4: Compute the center of the ellipse (cx, cy) in the original coordinate space
-            cx = cos(phi) * cxp - sin(phi) * cyp + (x0 + x1) / 2.0f;
-            cy = sin(phi) * cxp + cos(phi) * cyp + (y0 + y1) / 2.0f;
-
-            // Step 5: Compute the start angle and sweep angle
-            float theta1 = atan2((y1p - cyp) / ry, (x1p - cxp) / rx);
-            float deltaTheta = atan2((-y1p - cyp) / ry, (-x1p - cxp) / rx) - theta1;
-
-            // Normalize deltaTheta based on sweepFlag
-            if (sweepFlag == 0 && deltaTheta > 0) {
-                deltaTheta -= 2 * PI;
-            }
-            else if (sweepFlag == 1 && deltaTheta < 0) {
-                deltaTheta += 2 * PI;
-            }
-
-            // Convert radians to degrees for output
-            startAngle = theta1 * (180.0f / PI);
-            sweepAngle = deltaTheta * (180.0f / PI);
-            
-            float theta = degreesToRadians(xAxisRotation);
-
-            // Calculate terms for x and y bounds based on rotation
-            float cosTheta = cos(theta);
-            float sinTheta = sin(theta);
-
-            // Calculate the bounding box dimensions
-            float xRadiusEffect = sqrt((rx * cosTheta) * (rx * cosTheta) + (ry * sinTheta) * (ry * sinTheta));
-            float yRadiusEffect = sqrt((rx * sinTheta) * (rx * sinTheta) + (ry * cosTheta) * (ry * cosTheta));
-
-            // Calculate bounding box coordinates
-            float xMin = cx - xRadiusEffect;
-            float xMax = cx + xRadiusEffect;
-            float yMin = cy - yRadiusEffect;
-            float yMax = cy + yRadiusEffect;
-
-
-            graphicsPath.AddArc(xMin, yMax, rx * 2, ry * 2, startAngle, sweepAngle);
-            PointF point(x1, y1);
-            currentPoint = point;
         }
         else if (command == 'a') {
-            PointF point1, point2, point3;
-            std::replace(it.begin(), it.end(), ',', ' ');
-            std::istringstream stream(it.substr(1)); // Skip the first character
-
+            double x1, y1; // Start point
+            double x2, y2; // End point
+            double rx, ry; // Radii
+            double xAxisRotation; // Rotation of the ellipse
+            bool largeArcFlag, sweepFlag;
+            RectF boundingRect;  // Output bounding rectangle
+            double startAngle;   // Output start angle
+            double sweepAngle;    // Output sweep angle
+            double dx, dy;
+            const float PI = 3.14159265358979323846f;
+            auto DegreesToRadians = [PI](double degrees) {
+                return degrees * (PI / 180.0f);
+                };
+            auto RadiansToDegrees = [PI](double radians) {
+                return radians * (180.0f / PI);
+                };
             // Parse the six floating point values
-            stream >> point1.X >> point1.Y >> point2.X >> point2.Y >> point3.X >> point3.Y;
-            point1.X += currentPoint.X;
-            point1.Y += currentPoint.Y;
-            point2.X += currentPoint.X;
-            point2.Y += currentPoint.Y;
-            point3.X += currentPoint.X;
-            point3.Y += currentPoint.Y;
-            graphicsPath.AddBezier(currentPoint, point1, point2, point3);
+            while (stream >> rx >> ry >> xAxisRotation >> largeArcFlag >> sweepFlag >> dx >> dy) {
+                x1 = currentPoint.X;
+                y1 = currentPoint.Y;
+                x2 = dx + currentPoint.X;
+                y2 = dy + currentPoint.Y;
+                if (rx == 0 || ry == 0) {
+                    boundingRect = RectF(static_cast<float>(x1), static_cast<float>(y1), 0, 0);
+                    startAngle = sweepAngle = 0;
+                    graphicsPath.AddArc(boundingRect, startAngle, sweepAngle);
+                    return;
+                }
 
-            currentPoint = point3;
+                // Step 2: Transform endpoints to the ellipse coordinate system
+                double cosRotation = std::cos(DegreesToRadians(xAxisRotation));
+                double sinRotation = std::sin(DegreesToRadians(xAxisRotation));
 
-            fout << command << " " << point1.X << " " << point1.Y << " " << point2.X << " " << point2.Y << " " << point3.X << " " << point3.Y << endl;
-        }
-        if (command == 'z' || command == 'Z') {
-            if (lastStartPoint != NULL) {
-                graphicsPath.AddLine(currentPoint, *lastStartPoint);
+                double dx = (x1 - x2) / 2.0;
+                double dy = (y1 - y2) / 2.0;
+
+                double x1Prime = cosRotation * dx + sinRotation * dy;
+                double y1Prime = -sinRotation * dx + cosRotation * dy;
+
+                // Step 3: Correct radii if necessary
+                double rxSq = rx * rx;
+                double rySq = ry * ry;
+                double x1PrimeSq = x1Prime * x1Prime;
+                double y1PrimeSq = y1Prime * y1Prime;
+
+                double radiiCorrection = (x1PrimeSq / rxSq) + (y1PrimeSq / rySq);
+                if (radiiCorrection > 1) {
+                    double scaleFactor = std::sqrt(radiiCorrection);
+                    rx *= scaleFactor;
+                    ry *= scaleFactor;
+                    rxSq = rx * rx;
+                    rySq = ry * ry;
+                }
+
+                // Step 4: Compute center of the ellipse
+                double sign = (largeArcFlag != sweepFlag) ? 1 : -1;
+                double factor = sign * std::sqrt(max(0.0f, ((rxSq * rySq) - (rxSq * y1PrimeSq) - (rySq * x1PrimeSq)) / ((rxSq * y1PrimeSq) + (rySq * x1PrimeSq))));
+
+                double cxPrime = factor * (rx * y1Prime / ry);
+                double cyPrime = factor * -(ry * x1Prime / rx);
+
+                double cx = cosRotation * cxPrime - sinRotation * cyPrime + (x1 + x2) / 2.0;
+                double cy = sinRotation * cxPrime + cosRotation * cyPrime + (y1 + y2) / 2.0;
+
+                // Step 5: Compute angles
+                double theta1 = std::atan2((y1Prime - cyPrime) / ry, (x1Prime - cxPrime) / rx);
+                double deltaTheta = std::atan2((-y1Prime - cyPrime) / ry, (-x1Prime - cxPrime) / rx) - theta1;
+
+                if (!sweepFlag && deltaTheta > 0) {
+                    deltaTheta -= 2 * PI;
+                }
+                else if (sweepFlag && deltaTheta < 0) {
+                    deltaTheta += 2 * PI;
+                }
+
+                // Step 6: Set GDI+ parameters
+                boundingRect = RectF(static_cast<float>(cx - rx), static_cast<float>(cy - ry),
+                    static_cast<float>(2 * rx), static_cast<float>(2 * ry));
+                startAngle = RadiansToDegrees(theta1);
+                sweepAngle = RadiansToDegrees(deltaTheta);
+                graphicsPath.AddArc(boundingRect, startAngle, sweepAngle);
+                REAL x = x2;
+                REAL y = y2;
+                currentPoint = PointF{ x, y };
             }
         }
+        else if (command == 'h') {
+            REAL x;
+            while (stream >> x) {
+                PointF point{ currentPoint.X + x, currentPoint.Y };
+                graphicsPath.AddLine(currentPoint, point);
+                currentPoint = point;
+            }
+        }
+        else if (command == 'H') {
+            REAL x;
+            while (stream >> x) {
+                PointF point{ x, currentPoint.Y };
+                graphicsPath.AddLine(currentPoint, point);
+                currentPoint = point;
+            }
+        }
+        else if (command == 'v') {
+            REAL y;
+            while (stream >> y) {
+                PointF point{ currentPoint.X, currentPoint.Y + y };
+                graphicsPath.AddLine(currentPoint, point);
+                currentPoint = point;
+            }
+        }
+        else if (command == 'V') {
+            REAL y;
+            while (stream >> y) {
+                PointF point{ currentPoint.X, y };
+                graphicsPath.AddLine(currentPoint, point);
+                currentPoint = point;
+            }
+        }
+        else if (command == 'Q') {
+            PointF point1, point2;
+
+            // Parse the six floating point values
+            while (stream >> point1.X >> point1.Y >> point2.X >> point2.Y) {
+                PointF controlPoint1{ currentPoint.X + (2.0f / 3.0f) * (point1.X - currentPoint.X) , currentPoint.Y + (2.0f / 3.0f) * (point1.Y - currentPoint.Y) };
+                PointF controlPoint2{ point2.X + (2.0f / 3.0f) * (point1.X - point2.X), point2.Y + (2.0f / 3.0f) * (point1.Y - point2.Y) };
+
+                graphicsPath.AddBezier(currentPoint, controlPoint1, controlPoint2, point2);
+                currentPoint = point2;
+                fout << command << " " << point1.X << " " << point1.Y << " " << point2.X << " " << point2.Y << " " << endl;
+            }
+        }
+        else if (command == 'q') {
+            PointF point1, point2;
+
+            // Parse the six floating point values
+            while (stream >> point1.X >> point1.Y >> point2.X >> point2.Y) {
+                point1.X += currentPoint.X;
+                point1.Y += currentPoint.Y;
+                point2.X += currentPoint.X;
+                point2.Y += currentPoint.Y;
+
+                PointF controlPoint1{ currentPoint.X + (2.0f / 3.0f) * (point1.X - currentPoint.X) , currentPoint.Y + (2.0f / 3.0f) * (point1.Y - currentPoint.Y) };
+                PointF controlPoint2{ point2.X + (2.0f / 3.0f) * (point1.X - point2.X), point2.Y + (2.0f / 3.0f) * (point1.Y - point2.Y) };
+
+                graphicsPath.AddBezier(currentPoint, controlPoint1, controlPoint2, point2);
+                currentPoint = point2;
+                fout << command << " " << point1.X << " " << point1.Y << " " << point2.X << " " << point2.Y << " " << endl;
+            }
+        }
+        else if (command == 'z' || command == 'Z') {
+            graphicsPath.CloseFigure();
+        }
+
+        lastCommand = command;
     }
-    delete lastStartPoint;
 }
 
-unsigned int Path::hexToARGB(const std::string& hexColor)
-{
-    if (hexColor[0] != '#' || hexColor.size() != 7) {
-        throw std::invalid_argument("Invalid color format. Expected format: #RRGGBB");
-    }
-
-    // Parse the RGB components
-    unsigned int r, g, b;
-    std::istringstream(hexColor.substr(1, 2)) >> std::hex >> r;
-    std::istringstream(hexColor.substr(3, 2)) >> std::hex >> g;
-    std::istringstream(hexColor.substr(5, 2)) >> std::hex >> b;
-
-    // Construct ARGB with full opacity (0xFF for alpha)
-    unsigned int argb = (0xFF << 24) | (r << 16) | (g << 8) | b;
-    return argb;
-}
-
-void Path::setColor(std::string hexColor)
-{
-    if (hexColor[0] != '#' || hexColor.size() != 7) {
-        throw std::invalid_argument("Invalid color format. Expected format: #RRGGBB");
-    }
-
-    // Parse the RGB components
-    unsigned int r, g, b;
-    std::istringstream(hexColor.substr(1, 2)) >> std::hex >> r;
-    std::istringstream(hexColor.substr(3, 2)) >> std::hex >> g;
-    std::istringstream(hexColor.substr(5, 2)) >> std::hex >> b;
-    this->color = new Color(255, r, g, b);
-    // Construct ARGB with full opacity (0xFF for alpha)
-}
+//unsigned int Path::hexToARGB(const std::string& hexColor)
+//{
+//    if (hexColor[0] != '#' || hexColor.size() != 7) {
+//        throw std::invalid_argument("Invalid color format. Expected format: #RRGGBB");
+//    }
+//
+//    // Parse the RGB components
+//    unsigned int r, g, b;
+//    std::istringstream(hexColor.substr(1, 2)) >> std::hex >> r;
+//    std::istringstream(hexColor.substr(3, 2)) >> std::hex >> g;
+//    std::istringstream(hexColor.substr(5, 2)) >> std::hex >> b;
+//
+//    // Construct ARGB with full opacity (0xFF for alpha)
+//    unsigned int argb = (0xFF << 24) | (r << 16) | (g << 8) | b;
+//    return argb;
+//}
+//
+//void Path::parseColor(std::string attribute)
+//{
+//    std::string fillColor;
+//
+//    // Regular expressions to match clip-path and fill color
+//    //std::regex fillColorRegex(R"(fill:(#[A-Fa-f0-9]+))");
+//    std::regex fillColorRegex(R"(fill:(#[A-Fa-f0-9]{6}))");
+//    std::smatch match;
+//    // Extract fill color
+//    if (std::regex_search(attribute, match, fillColorRegex)) {
+//        fillColor = match[1]; // First capturing group
+//    }
+//    ofstream out("color.txt", ios::out);
+//    setColor(fillColor);
+//}
+//
+//void Path::setColor(std::string hexColor)
+//{
+//    if (hexColor[0] != '#' || hexColor.size() != 7) {
+//        throw std::invalid_argument("Invalid color format. Expected format: #RRGGBB");
+//    }
+//
+//    // Parse the RGB components
+//    unsigned int r, g, b;
+//    std::istringstream(hexColor.substr(1, 2)) >> std::hex >> r;
+//    std::istringstream(hexColor.substr(3, 2)) >> std::hex >> g;
+//    std::istringstream(hexColor.substr(5, 2)) >> std::hex >> b;
+//    this->color = new Color(255, r, g, b);
+//    // Construct ARGB with full opacity (0xFF for alpha)
+//}
 
 std::vector<std::string> Path::getData()
 {
@@ -350,9 +533,12 @@ Color Path::getColor()
     return *this->color;
 }
 
-void Path::draw(HDC hdc)
+VOID Path::Draw(HDC hdc)
 {
-    Graphics graphics(hdc);
+    /*Graphics graphics(hdc);
+    if (this->color == NULL) {
+        this->color = new Color(255, 0, 0, 0);
+    }
     Pen* pen = new Pen(*this->color, 1);
     Brush* brush = new SolidBrush(*this->color);
     GraphicsPath graphicsPath;
@@ -360,5 +546,48 @@ void Path::draw(HDC hdc)
     graphics.DrawPath(pen, &graphicsPath);
     graphics.FillPath(brush, &graphicsPath);
     delete pen;
-    delete brush;
+    delete brush;*/
+
+
+
+
+
+    Graphics graphics(hdc);
+    //Set up transform
+    string transform = getTransform(); string trash;
+    string translate, rotate, scale;
+    if (transform.find("translate") >= 0 && transform.find("translate") < transform.length()) {
+        stringstream ss(transform.substr(transform.find("translate")));
+        getline(ss, trash, ')');
+        translate = trash.substr(trash.find('(') + 1);
+        graphics.TranslateTransform(stoi(translate.substr(0, translate.find(','))), stoi(translate.substr(translate.find(',') + 1, translate.length() - translate.find(','))));
+    }
+    if (transform.find("rotate") >= 0 && transform.find("rotate") < transform.length()) {
+        stringstream ss(transform.substr(transform.find("rotate")));
+        getline(ss, trash, ')');
+        rotate = trash.substr(trash.find('(') + 1);;
+        graphics.RotateTransform(stoi(rotate));
+    }
+    if (transform.find("scale") >= 0 && transform.find("scale") < transform.length()) {
+        stringstream ss(transform.substr(transform.find("scale")));
+        getline(ss, trash, ')');
+        scale = trash.substr(trash.find('(') + 1);
+        if (scale.find(',') < 0 || scale.find(',') > scale.length()) graphics.ScaleTransform(stoi(scale), stoi(scale));
+        else graphics.ScaleTransform(stoi(scale.substr(0, scale.find(','))), stoi(scale.substr(scale.find(',') + 1, scale.length() - scale.find(','))));
+    }
+
+
+
+    //Set up color pen and draw
+    int* Stroke = parseColor(getStroke());
+    Pen	pen(Color(stof(getStrokeOpacity()) * 255, Stroke[0], Stroke[1], Stroke[2]), stof(getStrokeWidth()));
+    int* Fill = parseColor(getFill());
+    SolidBrush brush(Color(stof(getFillOpacity()) * 255, Fill[0], Fill[1], Fill[2]));
+
+    GraphicsPath graphicsPath;
+    createGraphicsPath(graphicsPath);
+    if (getStroke() != "") {
+        graphics.DrawPath(&pen, &graphicsPath);
+    }
+    graphics.FillPath(&brush, &graphicsPath);
 }

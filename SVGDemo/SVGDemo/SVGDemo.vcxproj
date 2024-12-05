@@ -108,7 +108,11 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>...\SVGDemo\SVGDemo\rapidxml.hpp</AdditionalLibraryDirectories>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -147,15 +151,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Element.h" />
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="Elip.h" />
+    <ClInclude Include="Group.h" />
+    <ClInclude Include="Line.h" />
+    <ClInclude Include="Path.h" />
+    <ClInclude Include="Polyline.h" />
+    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="Render.h" />
+    <ClInclude Include="Shape.h" />
+    <ClInclude Include="Polygon.h" />
     <ClInclude Include="rapidxml.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SVGDemo.h" />
+    <ClInclude Include="SVGParser.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Text.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Element.cpp" />
+    <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="Elip.cpp" />
+    <ClCompile Include="Group.cpp" />
+    <ClCompile Include="Line.cpp" />
+    <ClCompile Include="Path.cpp" />
+    <ClCompile Include="Polyline.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Render.cpp" />
+    <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -163,6 +187,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="SVGDemo.cpp" />
+    <ClCompile Include="SVGParser.cpp" />
+    <ClCompile Include="Text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SVGDemo.rc" />
@@ -170,6 +196,9 @@
   <ItemGroup>
     <Image Include="small.ico" />
     <Image Include="SVGDemo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
