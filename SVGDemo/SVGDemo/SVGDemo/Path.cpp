@@ -13,7 +13,7 @@ Path::~Path()
 
 Path::Path(xml_node<>* node)
 {
-    xml_attribute<>* firstAttribute = node->first_attribute();
+    /*xml_attribute<>* firstAttribute = node->first_attribute();
     while (firstAttribute != NULL) {
         string attributeName = firstAttribute->name();
         string attributeValue = firstAttribute->value();
@@ -27,43 +27,37 @@ Path::Path(xml_node<>* node)
             parseColor(attributeValue);
         }
         firstAttribute = firstAttribute->next_attribute();
-    }
-}
+    }*/
 
-void Path::parseFile(std::string filename)
-{
-    xml_document<> doc;
-    xml_node<>* rootNode;
-    string svgPath;
 
-    // Read the xml file into a vector
-    ifstream file(filename);
-    vector<char> buffer((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
-    buffer.push_back('\0');
-    // Parse the buffer using the xml file parsing library into doc 
-    doc.parse<0>(&buffer[0]);
 
-    rootNode = doc.first_node();
-    xml_node<>* node = rootNode->first_node();
 
-    while (node != NULL) {
-        string nodeName = node->name();
-        cout << nodeName << endl;
-        xml_attribute<>* firstAttribute = node->first_attribute();
-        while (firstAttribute != NULL) {
-            string attributeName = firstAttribute->name();
-            string attributeValue = firstAttribute->value();
-            if (attributeName == "d") {
-                parseElement(attributeValue);
-            }
-            if (attributeName == "fill") {
-                setColor(attributeValue);
-            }
-            firstAttribute = firstAttribute->next_attribute();
+    xml_attribute<>* firstAttribute = node->first_attribute();
+    //Default constructor
+    setStroke("");
+    setFill("");
+    setFillOpacity("1");
+    setStrokeWidth("1");
+    setStrokeOpacity("1");
+    //Copy constructor
+    while (firstAttribute != NULL)
+    {
+        string attributeName(firstAttribute->name());
+        string attributeValue(firstAttribute->value());
+        if (attributeName == "d") {
+            parseElement(attributeValue);
         }
-        node = node->next_sibling();
+        else if (attributeName == "fill" || attributeName == "style") setFill(attributeValue);
+        else if (attributeName == "stroke") setStroke(attributeValue);
+        else if (attributeName == "stroke-width") setStrokeWidth(attributeValue);
+        else if (attributeName == "stroke-opacity") setStrokeOpacity(attributeValue);
+        else if (attributeName == "fill-opacity") setFillOpacity(attributeValue);
+        else if (attributeName == "transform") setTransform(attributeValue);
+        firstAttribute = firstAttribute->next_attribute();
     }
 }
+
+
 
 void Path::parseElement(string d)
 {
@@ -429,6 +423,37 @@ void Path::createGraphicsPath(GraphicsPath& graphicsPath)
                 currentPoint = point;
             }
         }
+        else if (command == 'Q') {
+            PointF point1, point2;
+
+            // Parse the six floating point values
+            while (stream >> point1.X >> point1.Y >> point2.X >> point2.Y) {
+                PointF controlPoint1{ currentPoint.X + (2.0f / 3.0f) * (point1.X - currentPoint.X) , currentPoint.Y + (2.0f / 3.0f) * (point1.Y - currentPoint.Y) };
+                PointF controlPoint2{ point2.X + (2.0f / 3.0f) * (point1.X - point2.X), point2.Y + (2.0f / 3.0f) * (point1.Y - point2.Y) };
+
+                graphicsPath.AddBezier(currentPoint, controlPoint1, controlPoint2, point2);
+                currentPoint = point2;
+                fout << command << " " << point1.X << " " << point1.Y << " " << point2.X << " " << point2.Y << " " << endl;
+            }
+        }
+        else if (command == 'q') {
+            PointF point1, point2;
+
+            // Parse the six floating point values
+            while (stream >> point1.X >> point1.Y >> point2.X >> point2.Y) {
+                point1.X += currentPoint.X;
+                point1.Y += currentPoint.Y;
+                point2.X += currentPoint.X;
+                point2.Y += currentPoint.Y;
+
+                PointF controlPoint1{ currentPoint.X + (2.0f / 3.0f) * (point1.X - currentPoint.X) , currentPoint.Y + (2.0f / 3.0f) * (point1.Y - currentPoint.Y) };
+                PointF controlPoint2{ point2.X + (2.0f / 3.0f) * (point1.X - point2.X), point2.Y + (2.0f / 3.0f) * (point1.Y - point2.Y) };
+
+                graphicsPath.AddBezier(currentPoint, controlPoint1, controlPoint2, point2);
+                currentPoint = point2;
+                fout << command << " " << point1.X << " " << point1.Y << " " << point2.X << " " << point2.Y << " " << endl;
+            }
+        }
         else if (command == 'z' || command == 'Z') {
             graphicsPath.CloseFigure();
         }
@@ -437,53 +462,53 @@ void Path::createGraphicsPath(GraphicsPath& graphicsPath)
     }
 }
 
-unsigned int Path::hexToARGB(const std::string& hexColor)
-{
-    if (hexColor[0] != '#' || hexColor.size() != 7) {
-        throw std::invalid_argument("Invalid color format. Expected format: #RRGGBB");
-    }
-
-    // Parse the RGB components
-    unsigned int r, g, b;
-    std::istringstream(hexColor.substr(1, 2)) >> std::hex >> r;
-    std::istringstream(hexColor.substr(3, 2)) >> std::hex >> g;
-    std::istringstream(hexColor.substr(5, 2)) >> std::hex >> b;
-
-    // Construct ARGB with full opacity (0xFF for alpha)
-    unsigned int argb = (0xFF << 24) | (r << 16) | (g << 8) | b;
-    return argb;
-}
-
-void Path::parseColor(std::string attribute)
-{
-    std::string fillColor;
-
-    // Regular expressions to match clip-path and fill color
-    std::regex fillColorRegex(R"(fill:(#[A-Fa-f0-9]+))");
-
-    std::smatch match;
-    // Extract fill color
-    if (std::regex_search(attribute, match, fillColorRegex)) {
-        fillColor = match[1]; // First capturing group
-    }
-    ofstream out("color.txt", ios::out);
-    setColor(fillColor);
-}
-
-void Path::setColor(std::string hexColor)
-{
-    if (hexColor[0] != '#' || hexColor.size() != 7) {
-        throw std::invalid_argument("Invalid color format. Expected format: #RRGGBB");
-    }
-
-    // Parse the RGB components
-    unsigned int r, g, b;
-    std::istringstream(hexColor.substr(1, 2)) >> std::hex >> r;
-    std::istringstream(hexColor.substr(3, 2)) >> std::hex >> g;
-    std::istringstream(hexColor.substr(5, 2)) >> std::hex >> b;
-    this->color = new Color(255, r, g, b);
-    // Construct ARGB with full opacity (0xFF for alpha)
-}
+//unsigned int Path::hexToARGB(const std::string& hexColor)
+//{
+//    if (hexColor[0] != '#' || hexColor.size() != 7) {
+//        throw std::invalid_argument("Invalid color format. Expected format: #RRGGBB");
+//    }
+//
+//    // Parse the RGB components
+//    unsigned int r, g, b;
+//    std::istringstream(hexColor.substr(1, 2)) >> std::hex >> r;
+//    std::istringstream(hexColor.substr(3, 2)) >> std::hex >> g;
+//    std::istringstream(hexColor.substr(5, 2)) >> std::hex >> b;
+//
+//    // Construct ARGB with full opacity (0xFF for alpha)
+//    unsigned int argb = (0xFF << 24) | (r << 16) | (g << 8) | b;
+//    return argb;
+//}
+//
+//void Path::parseColor(std::string attribute)
+//{
+//    std::string fillColor;
+//
+//    // Regular expressions to match clip-path and fill color
+//    //std::regex fillColorRegex(R"(fill:(#[A-Fa-f0-9]+))");
+//    std::regex fillColorRegex(R"(fill:(#[A-Fa-f0-9]{6}))");
+//    std::smatch match;
+//    // Extract fill color
+//    if (std::regex_search(attribute, match, fillColorRegex)) {
+//        fillColor = match[1]; // First capturing group
+//    }
+//    ofstream out("color.txt", ios::out);
+//    setColor(fillColor);
+//}
+//
+//void Path::setColor(std::string hexColor)
+//{
+//    if (hexColor[0] != '#' || hexColor.size() != 7) {
+//        throw std::invalid_argument("Invalid color format. Expected format: #RRGGBB");
+//    }
+//
+//    // Parse the RGB components
+//    unsigned int r, g, b;
+//    std::istringstream(hexColor.substr(1, 2)) >> std::hex >> r;
+//    std::istringstream(hexColor.substr(3, 2)) >> std::hex >> g;
+//    std::istringstream(hexColor.substr(5, 2)) >> std::hex >> b;
+//    this->color = new Color(255, r, g, b);
+//    // Construct ARGB with full opacity (0xFF for alpha)
+//}
 
 std::vector<std::string> Path::getData()
 {
@@ -497,7 +522,7 @@ Color Path::getColor()
 
 VOID Path::Draw(HDC hdc)
 {
-    Graphics graphics(hdc);
+    /*Graphics graphics(hdc);
     if (this->color == NULL) {
         this->color = new Color(255, 0, 0, 0);
     }
@@ -508,5 +533,48 @@ VOID Path::Draw(HDC hdc)
     graphics.DrawPath(pen, &graphicsPath);
     graphics.FillPath(brush, &graphicsPath);
     delete pen;
-    delete brush;
+    delete brush;*/
+
+
+
+
+
+    Graphics graphics(hdc);
+    //Set up transform
+    string transform = getTransform(); string trash;
+    string translate, rotate, scale;
+    if (transform.find("translate") >= 0 && transform.find("translate") < transform.length()) {
+        stringstream ss(transform.substr(transform.find("translate")));
+        getline(ss, trash, ')');
+        translate = trash.substr(trash.find('(') + 1);
+        graphics.TranslateTransform(stoi(translate.substr(0, translate.find(','))), stoi(translate.substr(translate.find(',') + 1, translate.length() - translate.find(','))));
+    }
+    if (transform.find("rotate") >= 0 && transform.find("rotate") < transform.length()) {
+        stringstream ss(transform.substr(transform.find("rotate")));
+        getline(ss, trash, ')');
+        rotate = trash.substr(trash.find('(') + 1);;
+        graphics.RotateTransform(stoi(rotate));
+    }
+    if (transform.find("scale") >= 0 && transform.find("scale") < transform.length()) {
+        stringstream ss(transform.substr(transform.find("scale")));
+        getline(ss, trash, ')');
+        scale = trash.substr(trash.find('(') + 1);
+        if (scale.find(',') < 0 || scale.find(',') > scale.length()) graphics.ScaleTransform(stoi(scale), stoi(scale));
+        else graphics.ScaleTransform(stoi(scale.substr(0, scale.find(','))), stoi(scale.substr(scale.find(',') + 1, scale.length() - scale.find(','))));
+    }
+
+
+
+    //Set up color pen and draw
+    int* Stroke = parseColor(getStroke());
+    Pen	pen(Color(stof(getStrokeOpacity()) * 255, Stroke[0], Stroke[1], Stroke[2]), stof(getStrokeWidth()));
+    int* Fill = parseColor(getFill());
+    SolidBrush brush(Color(stof(getFillOpacity()) * 255, Fill[0], Fill[1], Fill[2]));
+
+    GraphicsPath graphicsPath;
+    createGraphicsPath(graphicsPath);
+    if (getStroke() != "") {
+        graphics.DrawPath(&pen, &graphicsPath);
+    }
+    graphics.FillPath(&brush, &graphicsPath);
 }

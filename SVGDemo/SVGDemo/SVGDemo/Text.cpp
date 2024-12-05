@@ -85,8 +85,12 @@ VOID TXT::Draw(HDC hdc)
 	FontFamily  fontFamily(L"Times New Roman");
 	Font        font(&fontFamily, textSize, FontStyleRegular, UnitPixel);
 	PointF      pointF(x, y);
-	LinearGradientBrush  solidBrush(Point(0, 0), Point(0, 100), Color(255, Stroke[0], Stroke[1], Stroke[2]),Color(255, Fill[0], Fill[1], Fill[2]));
+	//LinearGradientBrush  solidBrush(Point(0, 0), Point(0, 100), Color(255, Stroke[0], Stroke[1], Stroke[2]),Color(255, Fill[0], Fill[1], Fill[2]));
 	wstring wideText(content.begin(), content.end());
-	graphics.DrawString(wideText.c_str(), -1, &font, PointF(x, y - textSize), &solidBrush);
-	//graphics.DrawLine(&pen, 10, 120, x, y);
+	//graphics.DrawString(wideText.c_str(), -1, &font, PointF(x, y - textSize), &LinearGradientBrush);
+	GraphicsPath path;
+	path.AddString(wideText.c_str(), -1, &fontFamily, FontStyleRegular, static_cast<REAL>(textSize), pointF, nullptr);
+	graphics.DrawPath(&pen, &path);
+	SolidBrush fillBrush(Color(255, Fill[0], Fill[1], Fill[2]));
+	graphics.FillPath(&fillBrush, &path);
 }
