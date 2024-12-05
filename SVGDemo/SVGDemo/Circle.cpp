@@ -84,6 +84,6 @@ VOID CIRCLE::Draw(HDC hdc)
 	int* Fill = parseColor(getFill());
 	SolidBrush brush(Color(stof(getFillOpacity()) * 255, Fill[0], Fill[1], Fill[2]));
     REAL d = r * 2;
-	if(getStroke() != "none") graphics.DrawEllipse(&pen, cx - r, cy - r, d, d);
-	if(getFill() != "none") graphics.FillEllipse(&brush, cx - r, cy - r, d, d);
+	if(getStroke() != "none" && getStroke() != "") graphics.DrawEllipse(&pen, cx - r, cy - r, d, d);
+	if(getFill() != "none" && getFill() != "") graphics.FillEllipse(&brush, cx - r, cy - r, d, d);
 }

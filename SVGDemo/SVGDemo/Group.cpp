@@ -8,8 +8,8 @@ GROUP::GROUP(xml_node<>* node)
     ofstream fout("log.txt", ios::app);
     xml_attribute<>* firstAttribute = node->first_attribute();
     //Default constructor
-    setStroke("rgb(0, 0, 0)");
-    setFill("rgb(0, 0, 0)");
+    setStroke("");
+    setFill("");
     setFillOpacity("1");
     setStrokeWidth("1");
     setStrokeOpacity("1");
@@ -112,9 +112,9 @@ string combineTransforms(const string& transform1, const  string& transform2) {
 
     REAL tx1, ty1, rot1, scale1_1, scale1_2;
     tx1 = ty1 = rot1 = 0; scale1_1 = scale1_2 = 1;
-    //fout << "----------------start--------------\n";
-    //fout << "Transform1: " << transform1 << "\n";
-    //fout << "Transform2: " << transform2 << "\n";
+    fout << "----------------start--------------\n";
+    fout << "Transform1: " << transform1 << "\n";
+    fout << "Transform2: " << transform2 << "\n";
     if (regex_search(transform1, matches, translate_pattern)) {
         tx1 = stof(matches[1]);
         ty1 = stof(matches[2]);
@@ -174,8 +174,8 @@ string combineTransforms(const string& transform1, const  string& transform2) {
 
     
     string new_transform = "translate(" + to_string(total_tx) + ", " + to_string(total_ty) + ") rotate(" + to_string(total_rot) + ") scale(" + to_string(total_scale1) + ", " + to_string(total_scale2) + ")";
-    //fout << new_transform << "\n";
-    //fout << "-----------end-----------------\n";
+    fout << new_transform << "\n";
+    fout << "-----------end-----------------\n";
     return new_transform;
 }
 

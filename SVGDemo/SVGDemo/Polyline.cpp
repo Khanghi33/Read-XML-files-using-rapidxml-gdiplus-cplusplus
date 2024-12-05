@@ -29,8 +29,8 @@ POLYLINE::POLYLINE(xml_node<>* node)
 {
 	//Default Constructor
 	points = "";
-	setStroke("rgb(0, 0, 0)");
-	setFill("rgb(0, 0, 0)");
+	setStroke("");
+	setFill("");
 	setFillOpacity("1");
 	setStrokeWidth("1");
 	setStrokeOpacity("1");
@@ -85,6 +85,6 @@ VOID POLYLINE::Draw(HDC hdc)
 	SolidBrush brush(Color(stof(getFillOpacity()) * 255, Fill[0], Fill[1], Fill[2]));
 	vector<Point> Points = parsePoints(this->points);
 	Point* points = Points.data();
-	if(getStroke() != "none") graphics.DrawLines(&pen, Points.data(), Points.size());
-	if(getFill() != "none") graphics.FillPolygon(&brush, Points.data(), Points.size());
+	if(getStroke() != "none" && getStroke() != "") graphics.DrawLines(&pen, Points.data(), Points.size());
+	if(getFill() != "none" && getFill() != "") graphics.FillPolygon(&brush, Points.data(), Points.size());
 }

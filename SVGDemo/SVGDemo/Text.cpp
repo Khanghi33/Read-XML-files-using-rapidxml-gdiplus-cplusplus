@@ -23,8 +23,8 @@ TXT::TXT(xml_node<>* node)
 	content = node->value();
 	//Default constructor
 	x = 0, y = 0; textSize = 1;
-	setStroke("rgb(0, 0, 0)");
-	setFill("rgb(0, 0, 0)");
+	setStroke("");
+	setFill("");
 	setFillOpacity("1");
 	setStrokeWidth("1");
 	setStrokeOpacity("1");
@@ -90,9 +90,9 @@ VOID TXT::Draw(HDC hdc)
 	//graphics.DrawString(wideText.c_str(), -1, &font, PointF(x, y - textSize), &LinearGradientBrush);
 	GraphicsPath path;
 	path.AddString(wideText.c_str(), -1, &fontFamily, FontStyleRegular, static_cast<REAL>(textSize), pointF, nullptr);
-	if(getStroke() != "none") graphics.DrawPath(&pen, &path);
+	if(getStroke() != "none" && getStroke() != "none") graphics.DrawPath(&pen, &path);
 	SolidBrush fillBrush(Color(255, Fill[0], Fill[1], Fill[2]));
-	if(getFill() != "none") graphics.FillPath(&fillBrush, &path);
+	if(getFill() != "none" && getFill() != "none") graphics.FillPath(&fillBrush, &path);
 }
 
 ////Set up color and content to write

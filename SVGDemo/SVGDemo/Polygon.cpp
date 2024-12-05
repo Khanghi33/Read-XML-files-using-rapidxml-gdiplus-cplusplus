@@ -9,8 +9,8 @@ using namespace Gdiplus;
 POLYGON::POLYGON()
 {
 	points = "";
-	setStroke("rgb(0, 0, 0)");
-	setFill("rgb(0, 0, 0)");
+	setStroke("");
+	setFill("");
 	setFillOpacity("1");
 	setStrokeWidth("1");
 	setStrokeOpacity("1");
@@ -30,8 +30,8 @@ POLYGON::POLYGON(xml_node<>* node)
 {
 	//Default Constructor
 	points = "";
-	setStroke("rgb(0, 0, 0)");
-	setFill("rgb(0, 0, 0)");
+	setStroke("");
+	setFill("");
 	setFillOpacity("1");
 	setStrokeWidth("1");
 	setStrokeOpacity("1");
@@ -85,6 +85,6 @@ VOID POLYGON::Draw(HDC hdc)
 	SolidBrush    brush(Color(stof(getFillOpacity()) * 255, Fill[0], Fill[1], Fill[2]));
 	vector<Point> Points = parsePoints(this->points);
 	Point* points = Points.data();
-	if(getFill() != "none") graphics.FillPolygon(&brush, points, Points.size());
-	if(getStroke() != "none") graphics.DrawPolygon(&pen, points, Points.size());
+	if(getFill() != "none" && getFill() != "") graphics.FillPolygon(&brush, points, Points.size());
+	if(getStroke() != "none" && getStroke() != "") graphics.DrawPolygon(&pen, points, Points.size());
 }

@@ -10,8 +10,8 @@ ELIP::ELIP(xml_node<>* node)
 	xml_attribute<>* firstAttribute = node->first_attribute();
 	//Default constructor
 	x = y = rx = ry = 0;
-	setStroke("rgb(0, 0, 0)");
-	setFill("rgb(0, 0, 0)");
+	setStroke("");
+	setFill("");
 	setFillOpacity("1");
 	setStrokeWidth("1");
 	setStrokeOpacity("1");
@@ -67,6 +67,6 @@ VOID ELIP::Draw(HDC hdc)
 	Pen	pen(Color(stof(getStrokeOpacity()) * 255, Stroke[0], Stroke[1], Stroke[2]), stof(getStrokeWidth()));
 	int* Fill = parseColor(getFill());
 	SolidBrush brush(Color(stof(getFillOpacity()) * 255, Fill[0], Fill[1], Fill[2]));
-	if(getStroke() != "none") graphics.DrawEllipse(&pen, x - rx, y - ry, rx * 2, ry * 2);
-	if(getFill() != "none") graphics.FillEllipse(&brush, x - rx, y - ry, rx * 2, ry * 2);
+	if(getStroke() != "none" && getStroke() != "") graphics.DrawEllipse(&pen, x - rx, y - ry, rx * 2, ry * 2);
+	if(getFill() != "none" && getFill() != "") graphics.FillEllipse(&brush, x - rx, y - ry, rx * 2, ry * 2);
 }

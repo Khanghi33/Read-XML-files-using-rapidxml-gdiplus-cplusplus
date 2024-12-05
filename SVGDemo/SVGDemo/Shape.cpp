@@ -139,8 +139,9 @@ int* parseColor(string stroke) {
         {"sandybrown", "#F4A460"},
         {"seagreen", "#2E8B57"},
         {"seashell", "#FFF5EE"},
-        { "sienna", "#A0522D" },
-        { "yellow", "FFFF00" } };
+        {"sienna", "#A0522D" },
+        {"skyblue", "#87CEEB"},
+        {"yellow", "FFFF00" } };
     /*if (stroke == "") {
         Color[0] = Color[1] = Color[2] = 0;
         return Color;
@@ -158,6 +159,8 @@ int* parseColor(string stroke) {
         stringstream(tmp) >> Color[1];
         getline(ss, tmp);
         stringstream(tmp) >> Color[2];
+        for (int i = 0; i < 3; i++)
+            if (Color[i] >= 255) Color[i] = 255;
         return Color;
     }
     else if (regex_search(stroke, hexRegex)) {
@@ -202,26 +205,12 @@ vector<Point> parsePoints(string points) {
     ofstream fout("log.txt", ios::app);
     vector<Point> Points;
     // Regular expression to match coordinate pairs
-    std::regex pointRegexCommand(R"(\s*([\d.]+)\s*[,\s]?\s*([\d.]+)\s*)");
-    std::regex pointRegexNoCommand(R"(([-+]?\d*\.?\d+)\s*([-+]?\d*\.?\d+))");
+    std::regex pointRegex(R"(\s*([-?\d.]+)\s*[,\s]?\s*([-?\d.]+)\s*)");
     std::smatch matches;
 
-    //if (regex_search(points, matches, pointRegexNoCommand)) {
-    //    std::sregex_iterator it(points.begin(), points.end(), pointRegexCommand);
-    //    std::sregex_iterator end;
-
-    //    // Parse each coordinate pair
-    //    while (it != end) {
-    //        float x = std::stof((*it)[1]);
-    //        float y = std::stof((*it)[2]);
-    //        Points.emplace_back(x, y);
-    //        ++it;
-    //        fout << x << " " << y << "\n";
-    //    }
-    //}
     
-    if (regex_search(points, matches, pointRegexCommand)) {
-        std::sregex_iterator it(points.begin(), points.end(), pointRegexCommand);
+    if (regex_search(points, matches, pointRegex)) {
+        std::sregex_iterator it(points.begin(), points.end(), pointRegex);
         std::sregex_iterator end;
 
         // Parse each coordinate pair
@@ -230,7 +219,7 @@ vector<Point> parsePoints(string points) {
             float y = std::stof((*it)[2]);
             Points.emplace_back(x, y);
             ++it;
-            fout << x << " " << y << "\n";
+            //fout << x << " " << y << "\n";
         }
     }
     //if (points.find(',')) {

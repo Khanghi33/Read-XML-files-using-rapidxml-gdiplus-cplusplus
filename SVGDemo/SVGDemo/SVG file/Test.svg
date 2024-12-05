@@ -13,9 +13,9 @@
 		<line x1="10" y1="10" x2="85" y2="10"/>
 		<rect x="10" y="20" height="50" width="75" fill="rgb(0,255,0)"/>
 		<text x="10" y="110" stroke="rgb(255,255,0)" fill="rgb(0,0,255)" font-size ="55"> Text grouped with shapes</text>
-		<g transform="translate(200, 100) rotate(45)">
-			<text x="50" y="110" stroke="rgb(156,256,0)" fill="rgb(0,0,255)" font-size="40"> Nested Group Text 1</text>
-			<text x="50" y="110" stroke="none" fill="rgb(0,0,255)" font-size="40" transform="translate(0, 50)" > Nested Group Text 2"</text>
+		<g stroke="black" fill="yellow" transform="translate(200, 100) rotate(45)">
+			<text x="50" y="110" stroke="red" font-size="40"> Nested Group Text 1</text>
+			<text x="100" y="110" stroke="red" fill="green" font-size="40" transform="translate(0, 50)" > Nested Group Text 2</text>
 			<line x1="50" y1="130" x2="360" y2="130"/>
 		</g>
 	</g>

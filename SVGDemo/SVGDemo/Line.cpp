@@ -10,7 +10,7 @@ LINE::LINE(xml_node<>* node)
 	xml_attribute<>* firstAttribute = node->first_attribute();
 	//Default constructor
 	x1 = y1 = x2 = y2 = 0;
-	setStroke("rgb(0, 0, 0)");
+	setStroke("");
 	setStrokeWidth("1");
 	setStrokeOpacity("1");
 	//Copy constructor
@@ -62,5 +62,5 @@ VOID LINE::Draw(HDC hdc)
 	int* Stroke = parseColor(getStroke());
 	//Set up pen and draw
 	Pen	pen(Color(stof(getStrokeOpacity()) * 255, Stroke[0], Stroke[1], Stroke[2]), stof(getStrokeWidth()));
-	if(getStroke() != "none") graphics.DrawLine(&pen, x1, y1, x2, y2);
+	if(getStroke() != "none" && getStroke() != "") graphics.DrawLine(&pen, x1, y1, x2, y2);
 }
