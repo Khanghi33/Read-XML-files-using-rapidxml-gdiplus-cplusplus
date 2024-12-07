@@ -11,6 +11,7 @@
 #include "Text.h"
 #include "Path.h"
 #include "Group.h"
+#include "ViewBox.h"
 using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;

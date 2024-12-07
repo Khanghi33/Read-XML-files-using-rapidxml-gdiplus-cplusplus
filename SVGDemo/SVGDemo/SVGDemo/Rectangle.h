@@ -6,7 +6,7 @@ using namespace Gdiplus;
 
 class RECTANGLES : public Shape {
 private:
-	int x, y, height, width;
+	REAL x, y, height, width;
 public:
 	RECTANGLES(xml_node<>* node);
 	~RECTANGLES();

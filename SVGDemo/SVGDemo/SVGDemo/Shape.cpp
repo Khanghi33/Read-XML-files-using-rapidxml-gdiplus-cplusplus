@@ -8,12 +8,14 @@ using namespace Gdiplus;
 //Function parse string rbg(a, b, c) to usable data
 int* parseColor(string stroke) {
 
-	regex rgbRegex(R"(rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\))");
+    int* Color = new int[3] { 255 };
+    if (stroke == "none") return Color;
+    regex rgbRegex(R"(rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\))");
 
-	// Regex for Hexadecimal color
-	regex hexRegex(R"(#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6}))");
+    // Regex for Hexadecimal color
+    regex hexRegex(R"(#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6}))");
 
-	// Map for CSS Color Names (small example; expand as needed)
+    // Map for CSS Color Names (small example; expand as needed)
     std::map<std::string, std::string> cssColors = {
         {"aliceblue", "#F0F8FF"},
         {"antiquewhite", "#FAEBD7"},
@@ -133,77 +135,173 @@ int* parseColor(string stroke) {
         {"rosybrown", "#BC8F8F"},
         {"royalblue", "#4169E1"},
         {"saddlebrown", "#8B4513"},
-        {"salmon", "#FA8072"},
-        {"sandybrown", "#F4A460"},
-        {"seagreen", "#2E8B57"},
-        {"seashell", "#FFF5EE"},
-        { "sienna", "#A0522D" } };
-	int* Color = new int[3];
-	/*if (stroke == "") {
-		Color[0] = Color[1] = Color[2] = 0;
-		return Color;
-	}*/
-	Color[0] = Color[1] = Color[2] = 0;
+        { "salmon", "#FA8072" },
+        { "sandybrown", "#F4A460" },
+        { "seagreen", "#2E8B57" },
+        { "seashell", "#FFF5EE" },
+        { "sienna", "#A0522D" },
+        { "silver", "#C0C0C0" },
+        { "skyblue", "#87CEEB" },
+        { "slateblue", "#6A5ACD" },
+        { "slategray", "#708090" },
+        { "snow", "#FFFAFA" },
+        { "springgreen", "#00FF7F" },
+        { "steelblue", "#4682B4" },
+        { "tan", "#D2B48C" },
+        { "teal", "#008080" },
+        { "thistle", "#D8BFD8" },
+        { "tomato", "#FF6347" },
+        { "turquoise", "#40E0D0" },
+        { "violet", "#EE82EE" },
+        { "wheat", "#F5DEB3" },
+        { "white", "#FFFFFF" },
+        { "whitesmoke", "#F5F5F5" },
+        { "yellow", "#FFFF00" },
+        { "yellowgreen", "#9ACD32" }};
+    /*if (stroke == "") {
+        Color[0] = Color[1] = Color[2] = 0;
+        return Color;
+    }*/
+    Color[0] = Color[1] = Color[2] = 0;
 
-	if (regex_search(stroke, rgbRegex)) {
-		int start = stroke.find('(');
-		int end = stroke.find(')');
-		stringstream ss(stroke.substr(start + 1, end - start - 1));
-		string tmp;
-		getline(ss, tmp, ',');
-		stringstream(tmp) >> Color[0];
-		getline(ss, tmp, ',');
-		stringstream(tmp) >> Color[1];
-		getline(ss, tmp);
-		stringstream(tmp) >> Color[2];
-		return Color;
-	}
-	else if (regex_search(stroke, hexRegex)) {
-		std::string fillColor;
-		// Regular expressions to match clip-path and fill color
-		std::regex fillColorRegex(R"((#[A-Fa-f0-9]{6}))");
-		std::smatch match;
-		// Extract fill color
-		if (std::regex_search(stroke, match, fillColorRegex)) {
-		    fillColor = match[1]; // First capturing group
-		}
-		if (fillColor[0] != '#' || fillColor.size() != 7) {
-			throw std::invalid_argument("Invalid color format. Expected format: #RRGGBB");
-		}
-			
-		// Parse the RGB components
-		unsigned int r, g, b;
-		std::istringstream(fillColor.substr(1, 2)) >> std::hex >> r;
-		std::istringstream(fillColor.substr(3, 2)) >> std::hex >> g;
-		std::istringstream(fillColor.substr(5, 2)) >> std::hex >> b;
-		Color[0] = r;
-		Color[1] = g;
-		Color[2] = b;
-		return Color;
-	}
-	else if (cssColors.find(stroke) != cssColors.end()){
-		std::string fillColor = cssColors[stroke];
-		unsigned int r, g, b;
-		std::istringstream(fillColor.substr(1, 2)) >> std::hex >> r;
-		std::istringstream(fillColor.substr(3, 2)) >> std::hex >> g;
-		std::istringstream(fillColor.substr(5, 2)) >> std::hex >> b;
-		Color[0] = r;
-		Color[1] = g;
-		Color[2] = b;
-		return Color;
-	}
-	return Color;
+    if (regex_search(stroke, rgbRegex)) {
+        int start = stroke.find('(');
+        int end = stroke.find(')');
+        stringstream ss(stroke.substr(start + 1, end - start - 1));
+        string tmp;
+        getline(ss, tmp, ',');
+        stringstream(tmp) >> Color[0];
+        getline(ss, tmp, ',');
+        stringstream(tmp) >> Color[1];
+        getline(ss, tmp);
+        stringstream(tmp) >> Color[2];
+        for (int i = 0; i < 3; i++)
+            if (Color[i] >= 255) Color[i] = 255;
+        return Color;
+    }
+    else if (regex_search(stroke, hexRegex)) {
+        std::string fillColor;
+        // Regular expressions to match clip-path and fill color
+        std::regex fillColorRegex(R"((#[A-Fa-f0-9]{6}))");
+        std::regex fillColorRegexShort(R"((#[A-Fa-f0-9]{3}))");
+        std::smatch match;
+        // Extract fill color
+        if (std::regex_search(stroke, match, fillColorRegex)) {
+            fillColor = match[1]; // First capturing group
+            unsigned int r, g, b;
+            std::istringstream(fillColor.substr(1, 2)) >> std::hex >> r;
+            std::istringstream(fillColor.substr(3, 2)) >> std::hex >> g;
+            std::istringstream(fillColor.substr(5, 2)) >> std::hex >> b;
+            Color[0] = r;
+            Color[1] = g;
+            Color[2] = b;
+            return Color;
+        }
+        else if (std::regex_search(stroke, match, fillColorRegexShort)) {
+            fillColor = match[1]; // First capturing group
+            std::string expandedHex = "#";
+            expandedHex += std::string(2, fillColor[1]); // Repeat the first character
+            expandedHex += std::string(2, fillColor[2]); // Repeat the second character
+            expandedHex += std::string(2, fillColor[3]); // Repeat the third character
+
+            unsigned int r, g, b;
+            std::istringstream(expandedHex.substr(1, 2)) >> std::hex >> r;
+            std::istringstream(expandedHex.substr(3, 2)) >> std::hex >> g;
+            std::istringstream(expandedHex.substr(5, 2)) >> std::hex >> b;
+            Color[0] = r;
+            Color[1] = g;
+            Color[2] = b;
+            return Color;
+        }
+        if (fillColor[0] != '#' || fillColor.size() != 7) {
+            throw std::invalid_argument("Invalid color format. Expected format: #RRGGBB");
+        }
+
+        // Parse the RGB components
+        /*unsigned int r, g, b;
+        std::istringstream(fillColor.substr(1, 2)) >> std::hex >> r;
+        std::istringstream(fillColor.substr(3, 2)) >> std::hex >> g;
+        std::istringstream(fillColor.substr(5, 2)) >> std::hex >> b;
+        Color[0] = r;
+        Color[1] = g;
+        Color[2] = b;*/
+        return Color;
+    }
+    else if (cssColors.find(stroke) != cssColors.end()) {
+        std::string fillColor = cssColors[stroke];
+        unsigned int r, g, b;
+        std::istringstream(fillColor.substr(1, 2)) >> std::hex >> r;
+        std::istringstream(fillColor.substr(3, 2)) >> std::hex >> g;
+        std::istringstream(fillColor.substr(5, 2)) >> std::hex >> b;
+        Color[0] = r;
+        Color[1] = g;
+        Color[2] = b;
+        return Color;
+    }
+    return Color;
 }
 //Function to parse string points: "x1,y1 x2,y2 x3,y3 ..." usable data
+
 vector<Point> parsePoints(string points) {
-	stringstream ss(points);
-	string point;
-	vector<Point> Points;
-	while (getline(ss, point, ' ')) {
-		int idx = point.find(',');
-		Points.push_back(Point(stoi(point.substr(0, idx)),
-			stoi(point.substr(idx + 1))));
-	}
-	return Points;
+    ofstream fout("log.txt", ios::app);
+    vector<Point> Points;
+    // Regular expression to match coordinate pairs
+    std::regex pointRegex(R"(\s*([-?\d.]+)\s*[,\s]?\s*([-?\d.]+)\s*)");
+    std::smatch matches;
+
+
+    if (regex_search(points, matches, pointRegex)) {
+        std::sregex_iterator it(points.begin(), points.end(), pointRegex);
+        std::sregex_iterator end;
+
+        // Parse each coordinate pair
+        while (it != end) {
+            float x = std::stof((*it)[1]);
+            float y = std::stof((*it)[2]);
+            Points.emplace_back(x, y);
+            ++it;
+            //fout << x << " " << y << "\n";
+        }
+    }
+    //if (points.find(',')) {
+    //    std::sregex_iterator it(points.begin(), points.end(), pointRegexCommand);
+    //    std::sregex_iterator end;
+
+    //    // Parse each coordinate pair
+    //    while (it != end) {
+    //        float x = std::stof((*it)[1]);
+    //        float y = std::stof((*it)[2]);
+    //        Points.emplace_back(x, y);
+    //        ++it;
+    //        fout << x << " " << y << "\n";
+    //    }
+    //}
+    //else {
+    //    auto coordinatesBegin = std::sregex_iterator(points.begin(), points.end(), pointRegexNoCommand);
+    //    auto coordinatesEnd = std::sregex_iterator();
+
+    //    for (auto it = coordinatesBegin; it != coordinatesEnd; ++it) {
+    //        float x = std::stof((*it)[1]);
+    //        float y = std::stof((*it)[2]);
+    //        Points.emplace_back(x, y);
+    //        fout << x << " " << y << "\n";
+    //    }
+    //}
+    return Points;
 }
 
+
+
+//vector<Point> parsePoints(string points) {
+//    ofstream fout("log.txt", ios::app);
+//	stringstream ss(points);
+//	string point;
+//	vector<Point> Points;
+//	while (getline(ss, point, ' ')) {
+//		int idx = point.find(',');
+//		Points.push_back(Point(static_cast<REAL>(stof(point.substr(0, idx))),
+//			static_cast<REAL>(stof(point.substr(idx + 1)))));
+//        fout << static_cast<REAL>(stof(point.substr(0, idx))) << " " << static_cast<REAL>(stof(point.substr(idx + 1))) << "\n";
+//    }
+//	return Points;
+//}

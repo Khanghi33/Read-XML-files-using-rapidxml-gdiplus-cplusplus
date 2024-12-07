@@ -63,28 +63,28 @@ VOID POLYGON::Draw(HDC hdc)
 		stringstream ss(transform.substr(transform.find("translate")));
 		getline(ss, trash, ')');
 		translate = trash.substr(trash.find('(') + 1);
-		graphics.TranslateTransform(stoi(translate.substr(0, translate.find(','))), stoi(translate.substr(translate.find(',') + 1, translate.length() - translate.find(','))));
+		graphics.TranslateTransform(static_cast<REAL>(stof(translate.substr(0, translate.find(',')))), static_cast<REAL>(stof(translate.substr(translate.find(',') + 1, translate.length() - translate.find(',')))));
 	}
 	if (transform.find("rotate") >= 0 && transform.find("rotate") < transform.length()) {
 		stringstream ss(transform.substr(transform.find("rotate")));
 		getline(ss, trash, ')');
 		rotate = trash.substr(trash.find('(') + 1);;
-		graphics.RotateTransform(stoi(rotate));
+		graphics.RotateTransform(stof(rotate));
 	}
 	if (transform.find("scale") >= 0 && transform.find("scale") < transform.length()) {
 		stringstream ss(transform.substr(transform.find("scale")));
 		getline(ss, trash, ')');
 		scale = trash.substr(trash.find('(') + 1);
-		if (scale.find(',') < 0 || scale.find(',') > scale.length()) graphics.ScaleTransform(stoi(scale), stoi(scale));
-		else graphics.ScaleTransform(stoi(scale.substr(0, scale.find(','))), stoi(scale.substr(scale.find(',') + 1, scale.length() - scale.find(','))));
+		if (scale.find(',') < 0 || scale.find(',') > scale.length()) graphics.ScaleTransform(stof(scale), stof(scale));
+		else graphics.ScaleTransform(stof(scale.substr(0, scale.find(','))), stof(scale.substr(scale.find(',') + 1, scale.length() - scale.find(','))));
 	}
 	//Set up pen color and draw
 	int* Stroke = parseColor(getStroke());
 	Pen			  pen(Color(stof(getStrokeOpacity()) * 255, Stroke[0], Stroke[1], Stroke[2]), stof(getStrokeWidth()));
 	int* Fill = parseColor(getFill());
 	SolidBrush    brush(Color(stof(getFillOpacity()) * 255, Fill[0], Fill[1], Fill[2]));
-	vector<Point> Points = parsePoints(points);
+	vector<Point> Points = parsePoints(this->points);
 	Point* points = Points.data();
-	graphics.FillPolygon(&brush, points, Points.size());
-	graphics.DrawPolygon(&pen, points, Points.size());
+	if (getFill() != "none" && getFill() != "") graphics.FillPolygon(&brush, points, Points.size());
+	if (getStroke() != "none" && getStroke() != "") graphics.DrawPolygon(&pen, points, Points.size());
 }

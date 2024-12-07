@@ -7,8 +7,8 @@ using namespace Gdiplus;
 class TXT : public Shape {
 private:
 	string content;
-	int x;
-	int y;
+	REAL x;
+	REAL y;
 	int textSize;
 public:
 	TXT(string content, int x, int y, string fill, int textSize);

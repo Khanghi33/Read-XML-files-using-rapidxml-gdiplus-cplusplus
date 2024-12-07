@@ -6,7 +6,7 @@ using namespace Gdiplus;
 
 class ELIP : public Shape {
 private:
-	int x, y, rx, ry;
+	REAL x, y, rx, ry;
 public:
 	ELIP(xml_node<>* node);
 	~ELIP();

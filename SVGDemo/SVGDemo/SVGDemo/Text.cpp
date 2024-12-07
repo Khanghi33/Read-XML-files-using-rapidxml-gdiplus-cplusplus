@@ -44,8 +44,8 @@ TXT::TXT(xml_node<>* node)
 		else if (attributeName == "transform") setTransform(attributeValue);
 		firstAttribute = firstAttribute->next_attribute();
 	}
-	x = atoi(x1.c_str());
-	y = atoi(y1.c_str());
+	x = atof(x1.c_str());
+	y = atof(y1.c_str());
 	textSize = atoi(textSize1.c_str());
 }
 
@@ -85,11 +85,18 @@ VOID TXT::Draw(HDC hdc)
 	FontFamily  fontFamily(L"Times New Roman");
 	Font        font(&fontFamily, textSize, FontStyleRegular, UnitPixel);
 	PointF      pointF(x, y);
+	StringFormat gdisF = StringFormat::GenericDefault();
+	gdisF.SetLineAlignment(StringAlignmentCenter);
+	/*gdisF.SetAlignment(StringAlignmentNear);
+	gdisF.SetLineAlignment(StringAlignmentNear);
+	gdisF.SetFormatFlags(StringFormatFlagsNoWrap);
+	gdisF.SetHotkeyPrefix(HotkeyPrefixNone);
+	gdisF.SetTrimming(StringTrimmingNone);*/
 	//LinearGradientBrush  solidBrush(Point(0, 0), Point(0, 100), Color(255, Stroke[0], Stroke[1], Stroke[2]),Color(255, Fill[0], Fill[1], Fill[2]));
 	wstring wideText(content.begin(), content.end());
 	//graphics.DrawString(wideText.c_str(), -1, &font, PointF(x, y - textSize), &LinearGradientBrush);
 	GraphicsPath path;
-	path.AddString(wideText.c_str(), -1, &fontFamily, FontStyleRegular, static_cast<REAL>(textSize), pointF, nullptr);
+	path.AddString(wideText.c_str(), -1, &fontFamily, FontStyleRegular, static_cast<REAL>(textSize), pointF, &gdisF);
 	graphics.DrawPath(&pen, &path);
 	SolidBrush fillBrush(Color(255, Fill[0], Fill[1], Fill[2]));
 	graphics.FillPath(&fillBrush, &path);

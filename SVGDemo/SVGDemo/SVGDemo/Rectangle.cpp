@@ -18,10 +18,10 @@ RECTANGLES::RECTANGLES(xml_node<>* node)
 	while (firstAttribute != NULL) {
 		string attributeName = firstAttribute->name();
 		string attributeValue = firstAttribute->value();
-		if (attributeName == "x") x = stoi(attributeValue);
-		else if (attributeName == "y") y = stoi(attributeValue);
-		else if (attributeName == "height") height = stoi(attributeValue);
-		else if (attributeName == "width") width = stoi(attributeValue);
+		if (attributeName == "x") x = stof(attributeValue);
+		else if (attributeName == "y") y = stof(attributeValue);
+		else if (attributeName == "height") height = stof(attributeValue);
+		else if (attributeName == "width") width = stof(attributeValue);
 		else if (attributeName == "stroke") setStroke(attributeValue);
 		else if (attributeName == "stroke-width") setStrokeWidth(attributeValue);
 		else if (attributeName == "stroke-opacity") setStrokeOpacity(attributeValue);
@@ -38,6 +38,7 @@ RECTANGLES::~RECTANGLES()
 
 VOID RECTANGLES::Draw(HDC hdc)
 {
+	ofstream fout("log.txt", ios::app);
 	Graphics graphics(hdc);
 	//Set up transform
 	string transform = getTransform(); string trash;
@@ -46,26 +47,29 @@ VOID RECTANGLES::Draw(HDC hdc)
 		stringstream ss(transform.substr(transform.find("translate")));
 		getline(ss, trash, ')');
 		translate = trash.substr(trash.find('(') + 1);
-		graphics.TranslateTransform(stoi(translate.substr(0, translate.find(','))), stoi(translate.substr(translate.find(',') + 1, translate.length() - translate.find(','))));
+		graphics.TranslateTransform(static_cast<REAL>(stof(translate.substr(0, translate.find(',')))), static_cast<REAL>(stof(translate.substr(translate.find(',') + 1, translate.length() - translate.find(',')))));
 	}
 	if (transform.find("rotate") >= 0 && transform.find("rotate") < transform.length()) {
 		stringstream ss(transform.substr(transform.find("rotate")));
 		getline(ss, trash, ')');
 		rotate = trash.substr(trash.find('(') + 1);;
-		graphics.RotateTransform(stoi(rotate));
+		graphics.RotateTransform(stof(rotate));
 	}
 	if (transform.find("scale") >= 0 && transform.find("scale") < transform.length()) {
 		stringstream ss(transform.substr(transform.find("scale")));
 		getline(ss, trash, ')');
 		scale = trash.substr(trash.find('(') + 1);
-		if (scale.find(',') < 0 || scale.find(',') > scale.length()) graphics.ScaleTransform(stoi(scale), stoi(scale));
-		else graphics.ScaleTransform(stoi(scale.substr(0, scale.find(','))), stoi(scale.substr(scale.find(',') + 1, scale.length() - scale.find(','))));
+		if (scale.find(',') < 0 || scale.find(',') > scale.length()) graphics.ScaleTransform(stof(scale), stof(scale));
+		else {
+			graphics.ScaleTransform(stof(scale.substr(0, scale.find(','))), stof(scale.substr(scale.find(',') + 1, scale.length() - scale.find(','))));
+			fout << stof(scale.substr(0, scale.find(','))) << " " << stof(scale.substr(scale.find(',') + 1, scale.length() - scale.find(','))) << "\n";
+		}
 	}
 	//Set up pen color and draw
 	int* Stroke = parseColor(getStroke());
 	Pen	pen(Color(stof(getStrokeOpacity()) * 255, Stroke[0], Stroke[1], Stroke[2]), stof(getStrokeWidth()));
 	int* Fill = parseColor(getFill());
 	SolidBrush brush(Color(stof(getFillOpacity()) * 255, Fill[0], Fill[1], Fill[2]));
-	graphics.DrawRectangle(&pen, x, y, width, height);
-	graphics.FillRectangle(&brush, x, y, width, height);
+	if (getStroke() != "none" && getStroke() != "") graphics.DrawRectangle(&pen, x, y, width, height);
+	if (getFill() != "none" && getFill() != "") graphics.FillRectangle(&brush, x, y, width, height);
 }

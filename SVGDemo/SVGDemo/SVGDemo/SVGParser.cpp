@@ -29,6 +29,8 @@ void SVGParser::parse()
     doc.parse<0>(&buffer[0]);
 
     rootNode = doc.first_node();
+    ViewBox* viewBox = ViewBox::getInstance();
+    viewBox->parse(rootNode);
     xml_node<>* node = rootNode->first_node();
     while (node != NULL) { 
         string nodeName = node->name();
