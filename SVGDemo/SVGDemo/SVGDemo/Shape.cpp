@@ -309,36 +309,36 @@ vector<Point> parsePoints(string points) {
 
 void Shape::applyTransform(Graphics& graphics)
 {
-    //Set up transform
-    string transform = removeSpace(getTransform()); 
-    smatch matches;
-    regex rotation_pattern(R"(rotate\(\s*(-?\d*\.?\d+)\s*\))");
-    regex translate_pattern(R"(translate\(\s*(-?\d+(?:\.\d+)?)\s*,?\s*(-?\d+(?:\.\d+)?)\s*\))");
-    regex scale_pattern1(R"(scale\(\s*(-?\d*\.?\d+)\s*\))");
-    regex scale_pattern2(R"(scale\(\s*(-?\d*\.?\d+)\s*,\s*(-?\d*\.?\d+)\s*\))");
+    ////Set up transform
+    //string transform = removeSpace(getTransform()); 
+    //smatch matches;
+    //regex rotation_pattern(R"(rotate\(\s*(-?\d*\.?\d+)\s*\))");
+    //regex translate_pattern(R"(translate\(\s*(-?\d+(?:\.\d+)?)\s*,?\s*(-?\d+(?:\.\d+)?)\s*\))");
+    //regex scale_pattern1(R"(scale\(\s*(-?\d*\.?\d+)\s*\))");
+    //regex scale_pattern2(R"(scale\(\s*(-?\d*\.?\d+)\s*,\s*(-?\d*\.?\d+)\s*\))");
 
-    stringstream ss(transform);
-    vector<string> T; string tmp;
-    while (getline(ss, tmp)) T.push_back(tmp);
-    for (auto child : T) {
-        if (regex_search(child, matches, translate_pattern)) {
-            REAL tmp1 = stof(matches[1]);
-            REAL tmp2 = stof(matches[2]);
-            graphics.TranslateTransform(stof(matches[1]), stof(matches[2]));
-        }
+    //stringstream ss(transform);
+    //vector<string> T; string tmp;
+    //while (getline(ss, tmp)) T.push_back(tmp);
+    //for (auto child : T) {
+    //    if (regex_search(child, matches, translate_pattern)) {
+    //        REAL tmp1 = stof(matches[1]);
+    //        REAL tmp2 = stof(matches[2]);
+    //        graphics.TranslateTransform(stof(matches[1]), stof(matches[2]));
+    //    }
 
-        if (regex_search(child, matches, rotation_pattern)) {
-            graphics.RotateTransform(stof(matches[1]));
-        }
+    //    if (regex_search(child, matches, rotation_pattern)) {
+    //        graphics.RotateTransform(stof(matches[1]));
+    //    }
 
-        if (regex_search(child, matches, scale_pattern1)) {
-            graphics.ScaleTransform(stof(matches[1]), stof(matches[1]));
-        }
+    //    if (regex_search(child, matches, scale_pattern1)) {
+    //        graphics.ScaleTransform(stof(matches[1]), stof(matches[1]));
+    //    }
 
-        if (regex_search(child, matches, scale_pattern2)) {
-            graphics.ScaleTransform(stof(matches[1]), stof(matches[2]));
-        }
-    }
+    //    if (regex_search(child, matches, scale_pattern2)) {
+    //        graphics.ScaleTransform(stof(matches[1]), stof(matches[2]));
+    //    }
+    //}
     /*if (transform.find("translate") >= 0 && transform.find("translate") < transform.length()) {
         stringstream ss(transform.substr(transform.find("translate")));
         getline(ss, trash, ')');
@@ -358,6 +358,34 @@ void Shape::applyTransform(Graphics& graphics)
         if (scale.find(',') < 0 || scale.find(',') > scale.length()) graphics.ScaleTransform(stof(scale), stof(scale));
         else graphics.ScaleTransform(stof(scale.substr(0, scale.find(','))), stof(scale.substr(scale.find(',') + 1, scale.length() - scale.find(','))));
     }*/
+
+
+    std::string transformString = transform;
+
+    // Combined regex for rotate, scale, and translate
+    std::regex transformRegex(R"((rotate|scale|translate)\((-?\d+(\.\d+)?)(?:,?\s*(-?\d+(\.\d+)?))?\))");
+    std::smatch match;
+
+    // Search for all matches in the string
+    std::string::const_iterator searchStart(transformString.cbegin());
+    while (std::regex_search(searchStart, transformString.cend(), match, transformRegex)) {
+        std::string type = match[1];  // Capture the type: rotate, scale, or translate
+        REAL value1 = std::stof(match[2]); // First parameter
+        REAL value2 = match[4].matched ? std::stof(match[4]) : 0.0f; // Second parameter (if exists)
+
+
+        if (type == "rotate") {
+            graphics.RotateTransform(value1);
+        }
+        else if (type == "scale") {
+            if (value2 == 0) value2 = value1;
+            graphics.ScaleTransform(value1, value2);
+        }
+        else if (type == "translate") {
+            graphics.TranslateTransform(value1, value2);
+        }
+        searchStart = match.suffix().first;
+    }
 }
 
 string removeSpace(const string& transform) {

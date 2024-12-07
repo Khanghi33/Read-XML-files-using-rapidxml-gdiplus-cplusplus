@@ -1,9 +1,3 @@
-﻿  Shape.cpp
-C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(169,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(170,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(376,9): warning C4834: discarding return value of function with [[nodiscard]] attribute
-C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(381,9): warning C4834: discarding return value of function with [[nodiscard]] attribute
-C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(386,9): warning C4834: discarding return value of function with [[nodiscard]] attribute
-C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(392,9): warning C4834: discarding return value of function with [[nodiscard]] attribute
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.40.33807\include\xmemory(700,103): warning C4244: 'argument': conversion from 'float' to 'INT', possible loss of data
+﻿  SVGDemo.cpp
+C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\SVGDemo.cpp(73,14): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
   SVGDemo.vcxproj -> C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\x64\Debug\SVGDemo.exe
