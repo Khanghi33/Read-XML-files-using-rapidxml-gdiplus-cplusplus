@@ -1,5 +1,7 @@
 #pragma once
 #include "Shape.h"
+#include "ViewBox.h"
+
 using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;

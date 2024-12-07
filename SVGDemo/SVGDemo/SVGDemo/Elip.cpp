@@ -40,28 +40,9 @@ ELIP::~ELIP()
 VOID ELIP::Draw(HDC hdc)
 {
 	Graphics graphics(hdc);
-	//Set up transform
-	string transform = getTransform(); string trash;
-	string translate, rotate, scale;
-	if (transform.find("translate") >= 0 && transform.find("translate") < transform.length()) {
-		stringstream ss(transform.substr(transform.find("translate")));
-		getline(ss, trash, ')');
-		translate = trash.substr(trash.find('(') + 1);
-		graphics.TranslateTransform(static_cast<REAL>(stof(translate.substr(0, translate.find(',')))), static_cast<REAL>(stoi(translate.substr(translate.find(',') + 1, translate.length() - translate.find(',')))));
-	}
-	if (transform.find("rotate") >= 0 && transform.find("rotate") < transform.length()) {
-		stringstream ss(transform.substr(transform.find("rotate")));
-		getline(ss, trash, ')');
-		rotate = trash.substr(trash.find('(') + 1);;
-		graphics.RotateTransform(stof(rotate));
-	}
-	if (transform.find("scale") >= 0 && transform.find("scale") < transform.length()) {
-		stringstream ss(transform.substr(transform.find("scale")));
-		getline(ss, trash, ')');
-		scale = trash.substr(trash.find('(') + 1);
-		if (scale.find(',') < 0 || scale.find(',') > scale.length()) graphics.ScaleTransform(stof(scale), stof(scale));
-		else graphics.ScaleTransform(stof(scale.substr(0, scale.find(','))), stof(scale.substr(scale.find(',') + 1, scale.length() - scale.find(','))));
-	}
+	ViewBox* v = ViewBox::getInstance();
+	v->applyViewBox(graphics);
+	applyTransform(graphics);
 	//Set pen color and draw
 	int* Stroke = parseColor(getStroke());
 	Pen	pen(Color(stof(getStrokeOpacity()) * 255, Stroke[0], Stroke[1], Stroke[2]), stof(getStrokeWidth()));

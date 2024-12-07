@@ -8,6 +8,7 @@ using namespace Gdiplus;
 //Function parse string rbg(a, b, c) to usable data
 int* parseColor(string stroke) {
 
+    std::transform(stroke.begin(), stroke.end(), stroke.begin(), ::tolower);
     int* Color = new int[3] { 255 };
     if (stroke == "none") return Color;
     regex rgbRegex(R"(rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\))");
@@ -305,3 +306,90 @@ vector<Point> parsePoints(string points) {
 //    }
 //	return Points;
 //}
+
+void Shape::applyTransform(Graphics& graphics)
+{
+    //Set up transform
+    string transform = removeSpace(getTransform()); 
+    smatch matches;
+    regex rotation_pattern(R"(rotate\(\s*(-?\d*\.?\d+)\s*\))");
+    regex translate_pattern(R"(translate\(\s*(-?\d+(?:\.\d+)?)\s*,?\s*(-?\d+(?:\.\d+)?)\s*\))");
+    regex scale_pattern1(R"(scale\(\s*(-?\d*\.?\d+)\s*\))");
+    regex scale_pattern2(R"(scale\(\s*(-?\d*\.?\d+)\s*,\s*(-?\d*\.?\d+)\s*\))");
+
+    stringstream ss(transform);
+    vector<string> T; string tmp;
+    while (getline(ss, tmp)) T.push_back(tmp);
+    for (auto child : T) {
+        if (regex_search(child, matches, translate_pattern)) {
+            REAL tmp1 = stof(matches[1]);
+            REAL tmp2 = stof(matches[2]);
+            graphics.TranslateTransform(stof(matches[1]), stof(matches[2]));
+        }
+
+        if (regex_search(child, matches, rotation_pattern)) {
+            graphics.RotateTransform(stof(matches[1]));
+        }
+
+        if (regex_search(child, matches, scale_pattern1)) {
+            graphics.ScaleTransform(stof(matches[1]), stof(matches[1]));
+        }
+
+        if (regex_search(child, matches, scale_pattern2)) {
+            graphics.ScaleTransform(stof(matches[1]), stof(matches[2]));
+        }
+    }
+    /*if (transform.find("translate") >= 0 && transform.find("translate") < transform.length()) {
+        stringstream ss(transform.substr(transform.find("translate")));
+        getline(ss, trash, ')');
+        translate = trash.substr(trash.find('(') + 1);
+        graphics.TranslateTransform(static_cast<REAL>(stof(translate.substr(0, translate.find(' ')))), static_cast<REAL>(stof(translate.substr(translate.find(' ') + 1, translate.length() - translate.find(' ')))));
+    }
+    if (transform.find("rotate") >= 0 && transform.find("rotate") < transform.length()) {
+        stringstream ss(transform.substr(transform.find("rotate")));
+        getline(ss, trash, ')');
+        rotate = trash.substr(trash.find('(') + 1);;
+        graphics.RotateTransform(stof(rotate));
+    }
+    if (transform.find("scale") >= 0 && transform.find("scale") < transform.length()) {
+        stringstream ss(transform.substr(transform.find("scale")));
+        getline(ss, trash, ')');
+        scale = trash.substr(trash.find('(') + 1);
+        if (scale.find(',') < 0 || scale.find(',') > scale.length()) graphics.ScaleTransform(stof(scale), stof(scale));
+        else graphics.ScaleTransform(stof(scale.substr(0, scale.find(','))), stof(scale.substr(scale.find(',') + 1, scale.length() - scale.find(','))));
+    }*/
+}
+
+string removeSpace(const string& transform) {
+    string newTransform = transform;
+    regex rotation_pattern(R"(rotate\(\s*(-?\d*\.?\d+)\s*\))");
+    regex translate_pattern(R"(translate\(\s*(-?\d+(?:\.\d+)?)\s*,?\s*(-?\d+(?:\.\d+)?)\s*\))");
+    regex scale_pattern1(R"(scale\(\s*(-?\d*\.?\d+)\s*\))");
+    regex scale_pattern2(R"(scale\(\s*(-?\d*\.?\d+)\s*,\s*(-?\d*\.?\d+)\s*\))");
+    smatch matches;
+
+    REAL tx, ty, rot, scale1, scale2;
+    if (regex_search(newTransform, matches, translate_pattern)) {
+        tx = stof(matches[1]);
+        ty = stof(matches[2]);
+        string tmp = "translate(" + to_string(tx) + "," + to_string(ty) + ")";
+        regex_replace(newTransform, translate_pattern, "asdasdasdasd");
+    }
+
+    if (regex_search(newTransform, matches, rotation_pattern)) {
+        rot = stof(matches[1]);
+        regex_replace(newTransform, rotation_pattern, to_string(rot));
+    }
+
+    if (regex_search(newTransform, matches, scale_pattern1)) {
+        scale1 = scale2 = stof(matches[1]);
+        regex_replace(newTransform, scale_pattern1, "scale(" + to_string(scale1) + "," + to_string(scale2) + ")");
+    }
+
+    if (regex_search(newTransform, matches, scale_pattern2)) {
+        scale1 = stof(matches[1]);
+        scale1 = stof(matches[2]);
+        regex_replace(newTransform, scale_pattern1, "scale(" + to_string(scale1) + "," + to_string(scale2) + ")");
+    }
+    return newTransform;
+}

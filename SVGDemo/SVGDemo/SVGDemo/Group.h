@@ -13,3 +13,4 @@ public:
 };
 
 string combineTransforms(const string& transform1, const string& transform2);
+string fullyTransform(const string& transform1, const  string& transform2);

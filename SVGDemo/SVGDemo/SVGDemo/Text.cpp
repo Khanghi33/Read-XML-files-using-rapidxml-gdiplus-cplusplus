@@ -56,6 +56,8 @@ TXT::~TXT()
 VOID TXT::Draw(HDC hdc)
 {
 	Graphics graphics(hdc);
+	ViewBox* v = ViewBox::getInstance();
+	v->applyViewBox(graphics);
 	//Set up transform
 	string transform = getTransform(); string trash;
 	string translate, rotate, scale;

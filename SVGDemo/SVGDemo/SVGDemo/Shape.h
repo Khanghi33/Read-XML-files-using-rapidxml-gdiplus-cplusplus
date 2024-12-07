@@ -33,11 +33,13 @@ public:
 	void setStrokeOpacity(string strokeopacity) { this->stroke_opacity = strokeopacity; }
 	string getTransform() { return transform; }
 	void setTransform(string transform) { this->transform = transform; }
+	void applyTransform(Graphics& graphics);
 	virtual VOID Draw(HDC) = 0;
 };
 
 int* parseColor(string stroke);
 vector<Point> parsePoints(string points);
+string removeSpace(const string& transform);
 //unsigned int hexToARGB(const std::string& hexColor);
 
 //{
