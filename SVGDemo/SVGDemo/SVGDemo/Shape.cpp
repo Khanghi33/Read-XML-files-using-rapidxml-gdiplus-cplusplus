@@ -241,6 +241,24 @@ int* parseColor(string stroke) {
     }
     return Color;
 }
+bool checkGradientColor(string fill)
+{
+    std::regex pattern(R"(url\(#\w+\))");
+    return std::regex_search(fill, pattern);
+}
+string getGradientId(string fill)
+{
+    std::regex pattern(R"(url\(#(\w+)\))");
+    std::smatch match;
+
+    // Check if the string matches the pattern
+    if (std::regex_match(fill, match, pattern) && match.size() > 1) {
+        // The captured group (ID) is in match[1]
+        return match[1].str();
+    }
+    // Return an empty string if the pattern does not match
+    return "";
+}
 //Function to parse string points: "x1,y1 x2,y2 x3,y3 ..." usable data
 
 vector<Point> parsePoints(string points) {

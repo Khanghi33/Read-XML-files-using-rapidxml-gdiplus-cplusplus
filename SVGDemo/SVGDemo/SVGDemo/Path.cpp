@@ -122,15 +122,35 @@ void Path::createGraphicsPath(GraphicsPath& graphicsPath)
         else if (command == 'M') {
             PointF point1;
             int count = 0;
+            //while (stream >> point1.X >> point1.Y) {
+            //    
+            //    if (count > 0) {
+            //        graphicsPath.AddLine(currentPoint, point1);
+            //        graphicsPath.CloseFigure();
+            //    }
+            //    if (lastCommand == 'M' || lastCommand == 'm') {
+            //        graphicsPath.CloseFigure();
+            //    }
+            //    graphicsPath.StartFigure();
+            //    /*if (lastStartPoint.X == -1.0)
+            //    lastStartPoint = point1;*/
+            //    //graphicsPath.StartFigure();
+            //    currentPoint = point1;
+            //    fout << command << " " << point1.X << " " << point1.Y << endl;
+            //    count++;
+            //}
             while (stream >> point1.X >> point1.Y) {
-                if (count > 0) {
-                    graphicsPath.AddLine(currentPoint, point1);
-                    graphicsPath.CloseFigure();
+                if (count == 0) {
+                    // For the first point, just move the pen
+                    currentPoint = point1;
+                    graphicsPath.StartFigure(); // Start a new figure
                 }
-                /*if (lastStartPoint.X == -1.0)
-                lastStartPoint = point1;*/
-                graphicsPath.StartFigure();
-                currentPoint = point1;
+                else {
+                    // For subsequent points, draw lines
+                    graphicsPath.AddLine(currentPoint, point1);
+                    currentPoint = point1; // Update the current point
+                }
+
                 fout << command << " " << point1.X << " " << point1.Y << endl;
                 count++;
             }
@@ -138,24 +158,43 @@ void Path::createGraphicsPath(GraphicsPath& graphicsPath)
         else if (command == 'm') {
             PointF point1;
             int count = 0;
-            while (stream >> point1.X >> point1.Y) {
+            //while (stream >> point1.X >> point1.Y) {
 
-                if (count > 0) {
-                    graphicsPath.AddLine(currentPoint, point1);
-                    graphicsPath.CloseFigure();
-                }
+            //    if (count > 0) {
+            //        graphicsPath.AddLine(currentPoint, point1);
+            //        graphicsPath.CloseFigure();
+            //    }
+            //    if (lastCommand != 'O') {
+            //        point1.X += currentPoint.X;
+            //        point1.Y += currentPoint.Y;
+            //    }
+            //    if (lastCommand == 'M' || lastCommand == 'm') {
+            //        graphicsPath.CloseFigure();
+            //    }
+
+            //    /*if (lastStartPoint.X == -1.0)
+            //    lastStartPoint = point1;*/
+            //    graphicsPath.StartFigure();
+            //    currentPoint = point1;
+            //    fout << command << " " << point1.X << " " << point1.Y << endl;
+            //    count++;
+            //}
+            while (stream >> point1.X >> point1.Y) {
                 if (lastCommand != 'O') {
                     point1.X += currentPoint.X;
                     point1.Y += currentPoint.Y;
                 }
-                if (lastCommand == 'M' || lastCommand == 'm') {
-                    graphicsPath.CloseFigure();
+                if (count == 0) {
+                    // For the first point, just move the pen
+                    currentPoint = point1;
+                    graphicsPath.StartFigure(); // Start a new figure
+                }
+                else {
+                    // For subsequent points, draw lines
+                    graphicsPath.AddLine(currentPoint, point1);
+                    currentPoint = point1; // Update the current point
                 }
 
-                /*if (lastStartPoint.X == -1.0)
-                lastStartPoint = point1;*/
-                graphicsPath.StartFigure();
-                currentPoint = point1;
                 fout << command << " " << point1.X << " " << point1.Y << endl;
                 count++;
             }
@@ -569,5 +608,12 @@ VOID Path::Draw(HDC hdc)
     if (getStroke() != "" && getStroke() != "none") {
         graphics.DrawPath(&pen, &graphicsPath);
     }
-    if (getFill() != "" && getFill() != "none") graphics.FillPath(&brush, &graphicsPath);
+    
+    if (getGradientId(getFill()) != "") {
+        string id = getGradientId(getFill());
+        LinearGradient* gradient = LinearGradient::getInstance();
+        LinearGradientBrush* graidentBrush = gradient->getBrush(id);
+        graphics.FillPath(graidentBrush, &graphicsPath);
+    }
+    else if (getFill() != "" && getFill() != "none") graphics.FillPath(&brush, &graphicsPath);
 }

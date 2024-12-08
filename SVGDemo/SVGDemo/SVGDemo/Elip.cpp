@@ -49,5 +49,6 @@ VOID ELIP::Draw(HDC hdc)
 	int* Fill = parseColor(getFill());
 	SolidBrush brush(Color(stof(getFillOpacity()) * 255, Fill[0], Fill[1], Fill[2]));
 	if (getStroke() != "none" && getStroke() != "") graphics.DrawEllipse(&pen, x - rx, y - ry, rx * 2, ry * 2);
-	if (getFill() != "none" && getFill() != "") graphics.FillEllipse(&brush, x - rx, y - ry, rx * 2, ry * 2);
+	/*if (getFill() != "none" && getFill() != "") graphics.FillEllipse(&brush, x - rx, y - ry, rx * 2, ry * 2);*/
+	graphics.FillEllipse(&brush, x - rx, y - ry, rx * 2, ry * 2);
 }

@@ -104,7 +104,7 @@ VOID TXT::Draw(HDC hdc)
 	//Set up color and content to write
 	int* Fill = parseColor(getFill());
 	int* Stroke = parseColor(getStroke());
-	Pen pen(Color(stof(getStrokeOpacity()) * 255, Stroke[0], Stroke[1], Stroke[2]), stof(getStrokeWidth()));
+	Pen	pen(Color(stof(getStrokeOpacity()) * 255, Stroke[0], Stroke[1], Stroke[2]), stof(getStrokeWidth()));
 	FontFamily  fontFamily(L"Times New Roman");
 	Font        font(&fontFamily, textSize, FontStyleRegular, UnitPixel);
 	REAL baselineOffset = font.GetSize() / fontFamily.GetEmHeight(FontStyleRegular) * fontFamily.GetCellAscent(FontStyleRegular);

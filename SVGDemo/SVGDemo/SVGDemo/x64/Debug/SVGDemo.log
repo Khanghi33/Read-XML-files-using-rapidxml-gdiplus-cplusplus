@@ -1,13 +1,3 @@
-﻿  Group.cpp
-  SVGDemo.cpp
+﻿  SVGDemo.cpp
 C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\SVGDemo.cpp(73,14): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
-  SVGParser.cpp
-  Text.cpp
-C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Text.cpp(8,88): warning C4244: 'initializing': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
-C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Text.cpp(8,94): warning C4244: 'initializing': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
-C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Text.cpp(48,10): warning C4244: '=': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
-C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Text.cpp(49,10): warning C4244: '=': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
-C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Text.cpp(107,41): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
-C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Text.cpp(109,32): warning C4244: 'argument': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
-  Generating Code...
   SVGDemo.vcxproj -> C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\x64\Debug\SVGDemo.exe

@@ -38,6 +38,8 @@ public:
 };
 
 int* parseColor(string stroke);
+bool checkGradientColor(string fill);
+string getGradientId(string fill);
 vector<Point> parsePoints(string points);
 string removeSpace(const string& transform);
 //unsigned int hexToARGB(const std::string& hexColor);

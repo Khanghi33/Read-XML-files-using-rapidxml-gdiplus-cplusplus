@@ -10,8 +10,8 @@ using namespace Gdiplus;
 class ViewBox
 {
 private:
-	REAL canvasWidth = 800.0;
-	REAL canvasHeight = 600.0;
+	REAL canvasWidth = 600.0;
+	REAL canvasHeight = 400.0;
 	REAL x = 0.0;
 	REAL y = 0.0;
 	REAL width = 0.0;

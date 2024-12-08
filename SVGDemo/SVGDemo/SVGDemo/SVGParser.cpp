@@ -80,6 +80,17 @@ void SVGParser::parse()
             GROUP* g = new GROUP(node);
             shapes.push_back(g);
         }
+        else if (nodeName == "defs") {
+            xml_node<>* childNode = node->first_node();
+            while (childNode != NULL) {
+                string childNodeName = childNode->name();
+                if (childNodeName == "linearGradient") {
+                    LinearGradient* gradient = LinearGradient::getInstance();
+                    gradient->parse(childNode);
+                }
+                childNode = childNode->next_sibling();
+            }
+        }
         node = node->next_sibling();
     }
 }
