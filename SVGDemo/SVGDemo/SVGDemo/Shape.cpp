@@ -9,7 +9,7 @@ using namespace Gdiplus;
 int* parseColor(string stroke) {
 
     std::transform(stroke.begin(), stroke.end(), stroke.begin(), ::tolower);
-    int* Color = new int[3] { 255 };
+    int* Color = new int[3] { 255, 255, 255 };
     if (stroke == "none") return Color;
     regex rgbRegex(R"(rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\))");
 
