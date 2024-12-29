@@ -24,6 +24,7 @@ ELIP::ELIP(xml_node<>* node)
 		else if (attributeName == "rx") rx = stoi(attributeValue);
 		else if (attributeName == "ry") ry = stoi(attributeValue);
 		else if (attributeName == "fill") setFill(firstAttribute->value());
+		else if (attributeName == "style") parseStyle(attributeValue);
 		else if (attributeName == "fill-opacity") setFillOpacity(firstAttribute->value());
 		else if (attributeName == "stroke") setStroke(firstAttribute->value());
 		else if (attributeName == "stroke-width") setStrokeWidth(firstAttribute->value());

@@ -39,6 +39,7 @@ TXT::TXT(xml_node<>* node)
 		else if (attributeName == "stroke-width") setStrokeWidth(attributeValue);
 		else if (attributeName == "stroke-opacity") setStrokeOpacity(attributeValue);
 		else if (attributeName == "fill") setFill(attributeValue);
+		else if (attributeName == "style") parseStyle(attributeValue);
 		else if (attributeName == "fill-opacity") setFillOpacity(attributeValue);
 		else if (attributeName == "font-size") textSize1 = attributeValue;
 		else if (attributeName == "transform") setTransform(attributeValue);

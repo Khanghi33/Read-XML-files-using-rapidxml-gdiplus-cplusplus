@@ -327,82 +327,91 @@ vector<Point> parsePoints(string points) {
 
 void Shape::applyTransform(Graphics& graphics)
 {
-    ////Set up transform
-    //string transform = removeSpace(getTransform()); 
-    //smatch matches;
-    //regex rotation_pattern(R"(rotate\(\s*(-?\d*\.?\d+)\s*\))");
-    //regex translate_pattern(R"(translate\(\s*(-?\d+(?:\.\d+)?)\s*,?\s*(-?\d+(?:\.\d+)?)\s*\))");
-    //regex scale_pattern1(R"(scale\(\s*(-?\d*\.?\d+)\s*\))");
-    //regex scale_pattern2(R"(scale\(\s*(-?\d*\.?\d+)\s*,\s*(-?\d*\.?\d+)\s*\))");
+    //std::string transformString = transform;
 
-    //stringstream ss(transform);
-    //vector<string> T; string tmp;
-    //while (getline(ss, tmp)) T.push_back(tmp);
-    //for (auto child : T) {
-    //    if (regex_search(child, matches, translate_pattern)) {
-    //        REAL tmp1 = stof(matches[1]);
-    //        REAL tmp2 = stof(matches[2]);
-    //        graphics.TranslateTransform(stof(matches[1]), stof(matches[2]));
-    //    }
+    //// Combined regex for rotate, scale, and translate
+    //std::regex transformRegex(R"((rotate|scale|translate)\((-?\d+(\.\d+)?)(?:,?\s*(-?\d+(\.\d+)?))?\))");
+    //std::smatch match;
 
-    //    if (regex_search(child, matches, rotation_pattern)) {
-    //        graphics.RotateTransform(stof(matches[1]));
-    //    }
+    //// Search for all matches in the string
+    //std::string::const_iterator searchStart(transformString.cbegin());
+    //while (std::regex_search(searchStart, transformString.cend(), match, transformRegex)) {
+    //    std::string type = match[1];  // Capture the type: rotate, scale, or translate
+    //    REAL value1 = std::stof(match[2]); // First parameter
+    //    REAL value2 = match[4].matched ? std::stof(match[4]) : 0.0f; // Second parameter (if exists)
 
-    //    if (regex_search(child, matches, scale_pattern1)) {
-    //        graphics.ScaleTransform(stof(matches[1]), stof(matches[1]));
-    //    }
 
-    //    if (regex_search(child, matches, scale_pattern2)) {
-    //        graphics.ScaleTransform(stof(matches[1]), stof(matches[2]));
+    //    if (type == "rotate") {
+    //        graphics.RotateTransform(value1);
     //    }
+    //    else if (type == "scale") {
+    //        if (value2 == 0) value2 = value1;
+    //        graphics.ScaleTransform(value1, value2);
+    //    }
+    //    else if (type == "translate") {
+    //        graphics.TranslateTransform(value1, value2);
+    //    }
+    //    searchStart = match.suffix().first;
     //}
-    /*if (transform.find("translate") >= 0 && transform.find("translate") < transform.length()) {
-        stringstream ss(transform.substr(transform.find("translate")));
-        getline(ss, trash, ')');
-        translate = trash.substr(trash.find('(') + 1);
-        graphics.TranslateTransform(static_cast<REAL>(stof(translate.substr(0, translate.find(' ')))), static_cast<REAL>(stof(translate.substr(translate.find(' ') + 1, translate.length() - translate.find(' ')))));
-    }
-    if (transform.find("rotate") >= 0 && transform.find("rotate") < transform.length()) {
-        stringstream ss(transform.substr(transform.find("rotate")));
-        getline(ss, trash, ')');
-        rotate = trash.substr(trash.find('(') + 1);;
-        graphics.RotateTransform(stof(rotate));
-    }
-    if (transform.find("scale") >= 0 && transform.find("scale") < transform.length()) {
-        stringstream ss(transform.substr(transform.find("scale")));
-        getline(ss, trash, ')');
-        scale = trash.substr(trash.find('(') + 1);
-        if (scale.find(',') < 0 || scale.find(',') > scale.length()) graphics.ScaleTransform(stof(scale), stof(scale));
-        else graphics.ScaleTransform(stof(scale.substr(0, scale.find(','))), stof(scale.substr(scale.find(',') + 1, scale.length() - scale.find(','))));
-    }*/
-
 
     std::string transformString = transform;
 
-    // Combined regex for rotate, scale, and translate
-    std::regex transformRegex(R"((rotate|scale|translate)\((-?\d+(\.\d+)?)(?:,?\s*(-?\d+(\.\d+)?))?\))");
+    // Combined regex for rotate, scale, translate, and matrix
+    std::regex transformRegex(R"((rotate|scale|translate|matrix)\((-?\d+(\.\d+)?)(?:,?\s*(-?\d+(\.\d+)?))?(?:,?\s*(-?\d+(\.\d+)?))?(?:,?\s*(-?\d+(\.\d+)?))?(?:,?\s*(-?\d+(\.\d+)?))?\))");
     std::smatch match;
 
     // Search for all matches in the string
     std::string::const_iterator searchStart(transformString.cbegin());
     while (std::regex_search(searchStart, transformString.cend(), match, transformRegex)) {
-        std::string type = match[1];  // Capture the type: rotate, scale, or translate
-        REAL value1 = std::stof(match[2]); // First parameter
-        REAL value2 = match[4].matched ? std::stof(match[4]) : 0.0f; // Second parameter (if exists)
-
+        std::string type = match[1];  // Capture the type: rotate, scale, translate, or matrix
 
         if (type == "rotate") {
-            graphics.RotateTransform(value1);
+            REAL value = std::stof(match[2]); // First parameter
+            graphics.RotateTransform(value);
         }
         else if (type == "scale") {
-            if (value2 == 0) value2 = value1;
+            REAL value1 = std::stof(match[2]);
+            REAL value2 = match[4].matched ? std::stof(match[4]) : value1; // Second parameter (if exists)
             graphics.ScaleTransform(value1, value2);
         }
         else if (type == "translate") {
+            REAL value1 = std::stof(match[2]);
+            REAL value2 = match[4].matched ? std::stof(match[4]) : 0.0f; // Second parameter (if exists)
             graphics.TranslateTransform(value1, value2);
         }
+        else if (type == "matrix") {
+            // Matrix parameters: a, b, c, d, e, f
+            REAL a = std::stof(match[2]);
+            REAL b = std::stof(match[4]);
+            REAL c = std::stof(match[6]);
+            REAL d = std::stof(match[8]);
+            REAL e = std::stof(match[10]);
+            REAL f = std::stof(match[12]);
+
+            // Create a GDI+ Matrix
+            Matrix matrix(a, b, c, d, e, f);
+
+            // Apply the matrix transform to the graphics object
+            graphics.MultiplyTransform(&matrix);
+        }
+
         searchStart = match.suffix().first;
+    }
+}
+
+void Shape::parseStyle(string style)
+{
+    std::regex regex(R"(([a-zA-Z\-]+):([^;]+);)");
+    auto begin = std::sregex_iterator(style.begin(), style.end(), regex);
+    auto end = std::sregex_iterator();
+
+    for (auto it = begin; it != end; ++it) {
+        std::smatch match = *it;
+        std::string key = match[1].str();
+        std::string value = match[2].str();
+        if (key == "fill") setFill(value);
+        else if (key == "stroke") setStroke(value);
+        else if (key == "opacity") setFillOpacity(value);
     }
 }
 

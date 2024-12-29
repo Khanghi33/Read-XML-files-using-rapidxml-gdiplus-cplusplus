@@ -23,6 +23,7 @@ RECTANGLES::RECTANGLES(xml_node<>* node)
 		else if (attributeName == "height") height = stof(attributeValue);
 		else if (attributeName == "width") width = stof(attributeValue);
 		else if (attributeName == "stroke") setStroke(attributeValue);
+		else if (attributeName == "style") parseStyle(attributeValue);
 		else if (attributeName == "stroke-width") setStrokeWidth(attributeValue);
 		else if (attributeName == "stroke-opacity") setStrokeOpacity(attributeValue);
 		else if (attributeName == "fill") setFill(attributeValue);

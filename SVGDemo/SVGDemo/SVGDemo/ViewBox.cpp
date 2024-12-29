@@ -15,7 +15,7 @@ ViewBox::ViewBox()
 
 void ViewBox::applyViewBox(Graphics& g)
 {
-	if (check) {
+	/*if (check) {
 		REAL scaleX = canvasWidth / width;
 		REAL scaleY = canvasHeight / height;
 
@@ -23,7 +23,14 @@ void ViewBox::applyViewBox(Graphics& g)
 
 		g.ScaleTransform(scale, scale);
 		g.TranslateTransform(-x, -y);
-	}
+	}*/
+	REAL scaleX = canvasWidth / width;
+	REAL scaleY = canvasHeight / height;
+
+	REAL scale = (scaleX > scaleY) ? scaleX : scaleY;
+
+	g.ScaleTransform(scale, scale);
+	//g.TranslateTransform(-x, -y);
 }
 
 ViewBox* ViewBox::getInstance()

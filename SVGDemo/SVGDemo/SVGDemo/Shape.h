@@ -34,6 +34,7 @@ public:
 	string getTransform() { return transform; }
 	void setTransform(string transform) { this->transform = transform; }
 	void applyTransform(Graphics& graphics);
+	void parseStyle(string style);
 	virtual VOID Draw(HDC) = 0;
 };
 

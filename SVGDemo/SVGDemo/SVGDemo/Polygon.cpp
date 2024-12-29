@@ -41,6 +41,7 @@ POLYGON::POLYGON(xml_node<>* node)
 		string nameAttribute = firstAttribute->name();
 		if (nameAttribute == "points") points = firstAttribute->value();
 		else if (nameAttribute == "fill") setFill(firstAttribute->value());
+		else if (nameAttribute == "style") parseStyle(firstAttribute->value());
 		else if (nameAttribute == "fill-opacity") setFillOpacity(firstAttribute->value());
 		else if (nameAttribute == "stroke") setStroke(firstAttribute->value());
 		else if (nameAttribute == "stroke-width") setStrokeWidth(firstAttribute->value());

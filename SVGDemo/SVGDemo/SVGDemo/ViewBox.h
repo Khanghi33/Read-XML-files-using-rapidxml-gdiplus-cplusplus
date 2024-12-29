@@ -14,12 +14,16 @@ private:
 	REAL canvasHeight = 400.0;
 	REAL x = 0.0;
 	REAL y = 0.0;
-	REAL width = 0.0;
-	REAL height = 0.0;
+	REAL width = 600.0;
+	REAL height = 400.0;
 	bool check = false;
 	static ViewBox* instance;
 	ViewBox();
 public:
+	REAL getCanvasWidth() { return canvasWidth; }
+	REAL getCanvasHeight() { return canvasHeight; }
+	REAL getViewBoxWidth() { return width; }
+	REAL getViewBoxHeight() { return height; }
 	ViewBox(const ViewBox& other) = delete;
 	ViewBox& operator=(const ViewBox& other) = delete;
 	void applyViewBox(Graphics& g);

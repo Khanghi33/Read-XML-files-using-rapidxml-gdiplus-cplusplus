@@ -21,6 +21,7 @@ LINE::LINE(xml_node<>* node)
 		else if (attributeName == "y1") y1 = stoi(attributeValue);
 		else if (attributeName == "x2") x2 = stoi(attributeValue);
 		else if (attributeName == "y2") y2 = stoi(attributeValue);
+		else if (attributeName == "style") parseStyle(attributeValue);
 		else if (attributeName == "stroke") setStroke(attributeValue);
 		else if (attributeName == "stroke-width") setStrokeWidth(attributeValue);
 		else if (attributeName == "stroke-opacity") setStrokeOpacity(attributeValue);

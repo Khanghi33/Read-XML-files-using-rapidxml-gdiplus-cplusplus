@@ -21,6 +21,7 @@ GROUP::GROUP(xml_node<>* node)
         if (attributeName == "fill") setFill(attributeValue);
         else if (attributeName == "stroke") setStroke(attributeValue);
         else if (attributeName == "stroke-width") setStrokeWidth(attributeValue);
+        else if (attributeName == "style") parseStyle(attributeValue);
         else if (attributeName == "stroke-opacity") setStrokeOpacity(attributeValue);
         else if (attributeName == "fill-opacity") setFillOpacity(attributeValue);
         else if (attributeName == "transform") setTransform(attributeValue);

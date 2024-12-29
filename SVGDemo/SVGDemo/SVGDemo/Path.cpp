@@ -47,7 +47,8 @@ Path::Path(xml_node<>* node)
         if (attributeName == "d") {
             parseElement(attributeValue);
         }
-        else if (attributeName == "fill" || attributeName == "style") setFill(attributeValue);
+        else if (attributeName == "fill") setFill(attributeValue);
+        else if (attributeName == "style") parseStyle(attributeValue);
         else if (attributeName == "stroke") setStroke(attributeValue);
         else if (attributeName == "stroke-width") setStrokeWidth(attributeValue);
         else if (attributeName == "stroke-opacity") setStrokeOpacity(attributeValue);
@@ -611,9 +612,31 @@ VOID Path::Draw(HDC hdc)
     
     if (getGradientId(getFill()) != "") {
         string id = getGradientId(getFill());
+
+        // Get the bounds of the path
+        RectF bounds;
+        graphicsPath.GetBounds(&bounds);
+
+        // Get the gradient instance
         LinearGradient* gradient = LinearGradient::getInstance();
-        LinearGradientBrush* graidentBrush = gradient->getBrush(id);
-        graphics.FillPath(graidentBrush, &graphicsPath);
+
+        // Pass the bounds to the getBrush method
+        LinearGradientBrush* gradientBrush = gradient->getBrush(id, &bounds);
+
+        // Fill the path with the gradient brush
+        if (gradientBrush != nullptr) {
+            graphics.FillPath(gradientBrush, &graphicsPath);
+        }
+
+        // Clean up if necessary (if getBrush dynamically allocates the brush)
+        delete gradientBrush;
     }
-    else if (getFill() != "" && getFill() != "none") graphics.FillPath(&brush, &graphicsPath);
+    /*else if (getFill() != "" && getFill() != "none")
+    {
+        graphics.FillPath(&brush, &graphicsPath);
+    }*/
+    else if (getFill() != "none") {
+        graphics.FillPath(&brush, &graphicsPath);
+    }
+
 }

@@ -45,6 +45,7 @@ CIRCLE::CIRCLE(xml_node<>* node) {
 		else if (attributeName == "stroke") setStroke(attributeValue);
 		else if (attributeName == "stroke-width") setStrokeWidth(attributeValue);
 		else if (attributeName == "stroke-opacity") setStrokeOpacity(attributeValue);
+		else if (attributeName == "style") parseStyle(attributeValue);
 		else if (attributeName == "fill-opacity") setFillOpacity(attributeValue);
 		else if (attributeName == "transform") setTransform(attributeValue);
 		firstAttribute = firstAttribute->next_attribute();
@@ -67,5 +68,25 @@ VOID CIRCLE::Draw(HDC hdc)
 	REAL d = r * 2;
 	if (getStroke() != "none" && getStroke() != "") graphics.DrawEllipse(&pen, cx - r, cy - r, d, d);
 	/*if (getFill() != "none" && getFill() != "") graphics.FillEllipse(&brush, cx - r, cy - r, d, d);*/
-	graphics.FillEllipse(&brush, cx - r, cy - r, d, d);
+	if (getGradientId(getFill()) != "") {
+		string id = getGradientId(getFill());
+
+		// Get the bounds of the path
+		RectF bounds(cx - r, cy - r, d, d);
+
+		// Get the gradient instance
+		LinearGradient* gradient = LinearGradient::getInstance();
+
+		// Pass the bounds to the getBrush method
+		LinearGradientBrush* gradientBrush = gradient->getBrush(id, &bounds);
+
+		// Fill the path with the gradient brush
+		if (gradientBrush != nullptr) {
+			graphics.FillEllipse(gradientBrush, cx - r, cy - r, d, d);
+		}
+
+		// Clean up if necessary (if getBrush dynamically allocates the brush)
+		delete gradientBrush;
+	}
+	else graphics.FillEllipse(&brush, cx - r, cy - r, d, d);
 }

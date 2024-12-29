@@ -1,3 +1,5 @@
 ﻿  SVGDemo.cpp
-C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\SVGDemo.cpp(89,14): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
-  SVGDemo.vcxproj -> C:\Users\hvk25\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\x64\Debug\SVGDemo.exe
+C:\Users\Admin\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\SVGDemo.cpp(89,14): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
+  (compiling source file '/SVGDemo.cpp')
+  
+  SVGDemo.vcxproj -> C:\Users\Admin\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\x64\Debug\SVGDemo.exe
