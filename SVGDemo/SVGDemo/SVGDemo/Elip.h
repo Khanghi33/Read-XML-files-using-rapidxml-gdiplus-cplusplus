@@ -1,6 +1,7 @@
 #pragma once
 #include "Shape.h"
 #include "ViewBox.h"
+#include "LinearGradient.h"
 using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;

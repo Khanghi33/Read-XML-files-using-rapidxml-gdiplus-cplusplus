@@ -329,35 +329,51 @@ void Shape::applyTransform(Graphics& graphics)
 {
     //std::string transformString = transform;
 
-    //// Combined regex for rotate, scale, and translate
-    //std::regex transformRegex(R"((rotate|scale|translate)\((-?\d+(\.\d+)?)(?:,?\s*(-?\d+(\.\d+)?))?\))");
+    //// Combined regex for rotate, scale, translate, and matrix
+    //std::regex transformRegex(R"((rotate|scale|translate|matrix)\((-?\d+(\.\d+)?)(?:,?\s*(-?\d+(\.\d+)?))?(?:,?\s*(-?\d+(\.\d+)?))?(?:,?\s*(-?\d+(\.\d+)?))?(?:,?\s*(-?\d+(\.\d+)?))?\))");
     //std::smatch match;
 
     //// Search for all matches in the string
     //std::string::const_iterator searchStart(transformString.cbegin());
     //while (std::regex_search(searchStart, transformString.cend(), match, transformRegex)) {
-    //    std::string type = match[1];  // Capture the type: rotate, scale, or translate
-    //    REAL value1 = std::stof(match[2]); // First parameter
-    //    REAL value2 = match[4].matched ? std::stof(match[4]) : 0.0f; // Second parameter (if exists)
-
+    //    std::string type = match[1];  // Capture the type: rotate, scale, translate, or matrix
 
     //    if (type == "rotate") {
-    //        graphics.RotateTransform(value1);
+    //        REAL value = std::stof(match[2]); // First parameter
+    //        graphics.RotateTransform(value);
     //    }
     //    else if (type == "scale") {
-    //        if (value2 == 0) value2 = value1;
+    //        REAL value1 = std::stof(match[2]);
+    //        REAL value2 = match[4].matched ? std::stof(match[4]) : value1; // Second parameter (if exists)
     //        graphics.ScaleTransform(value1, value2);
     //    }
     //    else if (type == "translate") {
+    //        REAL value1 = std::stof(match[2]);
+    //        REAL value2 = match[4].matched ? std::stof(match[4]) : 0.0f; // Second parameter (if exists)
     //        graphics.TranslateTransform(value1, value2);
     //    }
+    //    else if (type == "matrix") {
+    //        // Matrix parameters: a, b, c, d, e, f
+    //        REAL a = std::stof(match[2]);
+    //        REAL b = std::stof(match[4]);
+    //        REAL c = std::stof(match[6]);
+    //        REAL d = std::stof(match[8]);
+    //        REAL e = std::stof(match[10]);
+    //        REAL f = std::stof(match[12]);
+
+    //        // Create a GDI+ Matrix
+    //        Matrix matrix(a, b, c, d, e, f);
+
+    //        // Apply the matrix transform to the graphics object
+    //        graphics.MultiplyTransform(&matrix);
+    //    }
+
     //    searchStart = match.suffix().first;
     //}
-
     std::string transformString = transform;
 
     // Combined regex for rotate, scale, translate, and matrix
-    std::regex transformRegex(R"((rotate|scale|translate|matrix)\((-?\d+(\.\d+)?)(?:,?\s*(-?\d+(\.\d+)?))?(?:,?\s*(-?\d+(\.\d+)?))?(?:,?\s*(-?\d+(\.\d+)?))?(?:,?\s*(-?\d+(\.\d+)?))?\))");
+    std::regex transformRegex(R"((rotate|scale|translate|matrix)\(([^)]+)\))");
     std::smatch match;
 
     // Search for all matches in the string
@@ -365,28 +381,32 @@ void Shape::applyTransform(Graphics& graphics)
     while (std::regex_search(searchStart, transformString.cend(), match, transformRegex)) {
         std::string type = match[1];  // Capture the type: rotate, scale, translate, or matrix
 
+        std::cout << "Enter values for " << type << " (separated by space): ";
+        std::string value = match[2];
+        std::replace(value.begin(), value.end(), ',', ' ');
+        istringstream in(value);
         if (type == "rotate") {
-            REAL value = std::stof(match[2]); // First parameter
-            graphics.RotateTransform(value);
+            REAL angle;
+            in >> angle; // Read input for rotation angle
+            graphics.RotateTransform(angle);
         }
         else if (type == "scale") {
-            REAL value1 = std::stof(match[2]);
-            REAL value2 = match[4].matched ? std::stof(match[4]) : value1; // Second parameter (if exists)
-            graphics.ScaleTransform(value1, value2);
+            REAL sx, sy;
+            in >> sx; // Read input for scale values
+            if (in >> sy) {
+                graphics.ScaleTransform(sx, sy);
+            }
+            else graphics.ScaleTransform(sx, sx);
         }
         else if (type == "translate") {
-            REAL value1 = std::stof(match[2]);
-            REAL value2 = match[4].matched ? std::stof(match[4]) : 0.0f; // Second parameter (if exists)
-            graphics.TranslateTransform(value1, value2);
+            REAL tx, ty;
+            in >> tx >> ty; // Read input for translation values
+            graphics.TranslateTransform(tx, ty);
         }
         else if (type == "matrix") {
             // Matrix parameters: a, b, c, d, e, f
-            REAL a = std::stof(match[2]);
-            REAL b = std::stof(match[4]);
-            REAL c = std::stof(match[6]);
-            REAL d = std::stof(match[8]);
-            REAL e = std::stof(match[10]);
-            REAL f = std::stof(match[12]);
+            REAL a, b, c, d, e, f;
+            in >> a >> b >> c >> d >> e >> f; // Read input for matrix values
 
             // Create a GDI+ Matrix
             Matrix matrix(a, b, c, d, e, f);

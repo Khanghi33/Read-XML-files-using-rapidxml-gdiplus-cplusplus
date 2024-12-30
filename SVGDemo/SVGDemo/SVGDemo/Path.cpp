@@ -606,12 +606,19 @@ VOID Path::Draw(HDC hdc)
 
     GraphicsPath graphicsPath;
     createGraphicsPath(graphicsPath);
+
+
+
+
+
+
     if (getStroke() != "" && getStroke() != "none") {
         graphics.DrawPath(&pen, &graphicsPath);
     }
     
     if (getGradientId(getFill()) != "") {
         string id = getGradientId(getFill());
+
 
         // Get the bounds of the path
         RectF bounds;

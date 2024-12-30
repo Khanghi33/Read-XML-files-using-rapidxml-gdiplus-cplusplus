@@ -52,4 +52,28 @@ VOID ELIP::Draw(HDC hdc)
 	if (getStroke() != "none" && getStroke() != "") graphics.DrawEllipse(&pen, x - rx, y - ry, rx * 2, ry * 2);
 	/*if (getFill() != "none" && getFill() != "") graphics.FillEllipse(&brush, x - rx, y - ry, rx * 2, ry * 2);*/
 	graphics.FillEllipse(&brush, x - rx, y - ry, rx * 2, ry * 2);
+
+	if (getStroke() != "none" && getStroke() != "") graphics.DrawEllipse(&pen, x - rx, y - ry, rx * 2, ry * 2);
+	/*if (getFill() != "none" && getFill() != "") graphics.FillEllipse(&brush, cx - r, cy - r, d, d);*/
+	if (getGradientId(getFill()) != "") {
+		string id = getGradientId(getFill());
+
+		// Get the bounds of the path
+		RectF bounds(x - rx, y - ry, rx * 2, ry * 2);
+
+		// Get the gradient instance
+		LinearGradient* gradient = LinearGradient::getInstance();
+
+		// Pass the bounds to the getBrush method
+		LinearGradientBrush* gradientBrush = gradient->getBrush(id, &bounds);
+
+		// Fill the path with the gradient brush
+		if (gradientBrush != nullptr) {
+			graphics.FillEllipse(gradientBrush, x - rx, y - ry, rx * 2, ry * 2);
+		}
+
+		// Clean up if necessary (if getBrush dynamically allocates the brush)
+		delete gradientBrush;
+	}
+	else graphics.FillEllipse(&brush, x - rx, y - ry, rx * 2, ry * 2);
 }

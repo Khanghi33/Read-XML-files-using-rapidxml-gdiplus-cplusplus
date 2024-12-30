@@ -133,7 +133,41 @@ VOID TXT::Draw(HDC hdc)
 	else if (textAnchor == "start") gdisF.SetAlignment(StringAlignmentNear);
 	else if (textAnchor == "end") gdisF.SetAlignment(StringAlignmentFar);
 	path.AddString(wideText.c_str(), -1, &fontFamily, FontStyleRegular, static_cast<REAL>(textSize), adjustedPos, &gdisF);
-	graphics.DrawPath(&pen, &path);
+	/*graphics.DrawPath(&pen, &path);
 	SolidBrush fillBrush(Color(255, Fill[0], Fill[1], Fill[2]));
-	graphics.FillPath(&fillBrush, &path);
+	graphics.FillPath(&fillBrush, &path);*/
+	SolidBrush fillBrush(Color(255, Fill[0], Fill[1], Fill[2]));
+	if (getStroke() != "" && getStroke() != "none") {
+		graphics.DrawPath(&pen, &path);
+	}
+
+	if (getGradientId(getFill()) != "") {
+		string id = getGradientId(getFill());
+
+
+		// Get the bounds of the path
+		RectF bounds;
+		path.GetBounds(&bounds);
+
+		// Get the gradient instance
+		LinearGradient* gradient = LinearGradient::getInstance();
+
+		// Pass the bounds to the getBrush method
+		LinearGradientBrush* gradientBrush = gradient->getBrush(id, &bounds);
+
+		// Fill the path with the gradient brush
+		if (gradientBrush != nullptr) {
+			graphics.FillPath(gradientBrush, &path);
+		}
+
+		// Clean up if necessary (if getBrush dynamically allocates the brush)
+		delete gradientBrush;
+	}
+	/*else if (getFill() != "" && getFill() != "none")
+	{
+		graphics.FillPath(&brush, &graphicsPath);
+	}*/
+	else if (getFill() != "none") {
+		graphics.FillPath(&fillBrush, &path);
+	}
 }
