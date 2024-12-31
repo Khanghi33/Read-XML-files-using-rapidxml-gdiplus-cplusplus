@@ -16,6 +16,7 @@ LINE::LINE(xml_node<>* node)
 	setStrokeOpacity("1");
 	//Copy constructor
 	while (firstAttribute != NULL) {
+		// draw with cordinate of points 
 		string attributeName = firstAttribute->name();
 		string attributeValue = firstAttribute->value();
 		if (attributeName == "x1") x1 = stoi(attributeValue);
@@ -38,6 +39,7 @@ LINE::~LINE()
 VOID LINE::Draw(HDC hdc)
 {
 	Graphics graphics(hdc);
+	//set up ViewBox
 	ViewBox* v = ViewBox::getInstance();
 	v->applyViewBox(graphics);
 	applyTransform(graphics);

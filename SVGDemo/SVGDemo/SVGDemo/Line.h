@@ -4,7 +4,7 @@
 using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;
-
+//simple shape 
 class LINE : public Shape {
 private:
 	REAL x1, y1, x2, y2;
