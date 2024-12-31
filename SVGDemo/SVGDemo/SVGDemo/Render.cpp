@@ -1,6 +1,7 @@
 #include "rapidxml.hpp"
 #include "stdafx.h"
 #include "Render.h"
+//render
 
 Render::Render(vector<Shape*> shapes, HDC* hdc)
 {

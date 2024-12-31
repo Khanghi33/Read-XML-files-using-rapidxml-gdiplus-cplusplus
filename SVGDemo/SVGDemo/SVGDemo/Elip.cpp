@@ -4,6 +4,7 @@
 using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;
+//elip
 
 ELIP::ELIP(xml_node<>* node)
 {

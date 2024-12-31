@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "Group.h"
 using namespace std;
+//group
 
 GROUP::GROUP(xml_node<>* node)
 {

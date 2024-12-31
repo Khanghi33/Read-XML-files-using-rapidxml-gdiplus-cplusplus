@@ -4,6 +4,7 @@
 using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;
+//rectangle
 
 RECTANGLES::RECTANGLES(xml_node<>* node)
 {

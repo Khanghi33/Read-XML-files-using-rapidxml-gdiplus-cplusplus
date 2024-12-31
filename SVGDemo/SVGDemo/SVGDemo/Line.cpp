@@ -4,6 +4,7 @@
 using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;
+//line
 
 LINE::LINE(xml_node<>* node)
 {

@@ -4,7 +4,8 @@
 using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;
-
+//linear
+// 
 // Initialize static member
 LinearGradient* LinearGradient::instance = nullptr;
 

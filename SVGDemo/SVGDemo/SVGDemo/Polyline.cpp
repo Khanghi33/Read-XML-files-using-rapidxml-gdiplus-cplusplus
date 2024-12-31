@@ -4,6 +4,7 @@
 using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;
+//polyline
 
 POLYLINE::POLYLINE(string Points, string Stroke, string Fill, string Stroke_width, string Fill_opacity, string Stroke_opacity)
 {

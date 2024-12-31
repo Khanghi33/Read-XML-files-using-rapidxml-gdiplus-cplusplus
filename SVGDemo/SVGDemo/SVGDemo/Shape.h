@@ -11,6 +11,9 @@
 #include <regex>
 #include <map>
 #include <gdiplus.h>
+#include "ViewBox.h"
+#include "LinearGradient.h"
+
 using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;

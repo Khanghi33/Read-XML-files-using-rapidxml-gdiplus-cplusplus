@@ -4,6 +4,7 @@
 using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;
+//polygon
 
 //Default constructor for POLYGON class
 POLYGON::POLYGON()

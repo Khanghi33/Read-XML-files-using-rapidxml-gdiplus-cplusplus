@@ -10,7 +10,7 @@ CIRCLE::CIRCLE() : cx(0), cy(0), r(0) {
 	setFill("");
 	setFillOpacity("1");
 	setStrokeWidth("1");
-	setStrokeOpacity("1");
+	setStrokeOpacity("1");// opacity something
 }
 
 CIRCLE::CIRCLE(int cx, int cy, int r, string stroke, string fill, string stroke_width, string fill_opacity, string stroke_opacity) {

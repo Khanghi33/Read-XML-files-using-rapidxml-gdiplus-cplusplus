@@ -4,6 +4,7 @@
 using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;
+//text
 
 TXT::TXT(string content, int x, int y, string fill, int textSize) : content(content), x(x), y(y), textSize(textSize) { setFill(fill); }
 
