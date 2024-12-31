@@ -6,7 +6,7 @@ using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;
 
-
+//polyline inheritance from line
 class POLYLINE : public Shape {
 private:
 	string points;

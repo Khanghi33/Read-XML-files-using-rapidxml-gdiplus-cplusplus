@@ -29,6 +29,7 @@ POLYLINE::POLYLINE()
 POLYLINE::POLYLINE(xml_node<>* node)
 {
 	//Default Constructor
+	//default attributes set to 0 or 1 
 	points = "";
 	setStroke("");
 	setFill("");
@@ -57,6 +58,7 @@ POLYLINE::~POLYLINE()
 
 VOID POLYLINE::Draw(HDC hdc)
 {
+	//draw with pen and use class graphic 
 	Graphics graphics(hdc);
 	ViewBox* v = ViewBox::getInstance();
 	v->applyViewBox(graphics);

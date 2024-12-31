@@ -40,6 +40,7 @@ RECTANGLES::~RECTANGLES()
 
 VOID RECTANGLES::Draw(HDC hdc)
 {
+	//use log.txt to determine whether if draw works 
 	ofstream fout("log.txt", ios::app);
 	Graphics graphics(hdc);
 	ViewBox* v = ViewBox::getInstance();

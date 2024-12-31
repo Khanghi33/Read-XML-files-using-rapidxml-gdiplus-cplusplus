@@ -9,6 +9,7 @@ using namespace Gdiplus;
 //Default constructor for POLYGON class
 POLYGON::POLYGON()
 {
+	//declare constructor for points and attributes
 	points = "";
 	setStroke("");
 	setFill("");
@@ -71,3 +72,5 @@ VOID POLYGON::Draw(HDC hdc)
 	if (getFill() != "none" && getFill() != "") graphics.FillPolygon(&brush, points, Points.size());
 	if (getStroke() != "none" && getStroke() != "") graphics.DrawPolygon(&pen, points, Points.size());
 }
+//ahoy Stroke declared
+//attribute set to defalut and clear the edge

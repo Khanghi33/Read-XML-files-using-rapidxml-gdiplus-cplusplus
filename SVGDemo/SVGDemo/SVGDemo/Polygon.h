@@ -4,7 +4,7 @@
 using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;
-
+//class polygon using points and stroke
 class POLYGON : public Shape {
 private:
 	string points;
