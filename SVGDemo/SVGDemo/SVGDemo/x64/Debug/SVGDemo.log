@@ -1,187 +1,188 @@
-﻿  Circle.cpp
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Circle.cpp(17,13): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+﻿  stdafx.cpp
+  Circle.cpp
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Circle.cpp(17,13): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Circle.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Circle.cpp(18,13): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Circle.cpp(18,13): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Circle.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Circle.cpp(19,12): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Circle.cpp(19,12): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Circle.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Circle.cpp(65,41): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Circle.cpp(65,41): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
   (compiling source file '/Circle.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Circle.cpp(67,48): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Circle.cpp(67,48): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
   (compiling source file '/Circle.cpp')
   
   Elip.cpp
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Elip.cpp(23,38): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Elip.cpp(23,38): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Elip.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Elip.cpp(24,43): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Elip.cpp(24,43): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Elip.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Elip.cpp(25,44): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Elip.cpp(25,44): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Elip.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Elip.cpp(26,44): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Elip.cpp(26,44): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Elip.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Elip.cpp(50,41): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Elip.cpp(50,41): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
   (compiling source file '/Elip.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Elip.cpp(52,48): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Elip.cpp(52,48): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
   (compiling source file '/Elip.cpp')
   
   Group.cpp
   Line.cpp
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Line.cpp(21,39): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Line.cpp(22,39): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Line.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Line.cpp(22,44): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Line.cpp(23,44): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Line.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Line.cpp(23,44): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Line.cpp(24,44): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Line.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Line.cpp(24,44): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Line.cpp(25,44): warning C4244: '=': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Line.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Line.cpp(47,41): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Line.cpp(49,41): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
   (compiling source file '/Line.cpp')
   
   LinearGradient.cpp
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(47,48): warning C4244: '=': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(47,48): warning C4244: '=': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/LinearGradient.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(55,48): warning C4244: '=': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(55,48): warning C4244: '=': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/LinearGradient.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(63,48): warning C4244: '=': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(63,48): warning C4244: '=': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/LinearGradient.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(71,48): warning C4244: '=': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(71,48): warning C4244: '=': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/LinearGradient.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(105,105): warning C4267: 'argument': conversion from 'size_t' to 'INT', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(105,105): warning C4267: 'argument': conversion from 'size_t' to 'INT', possible loss of data
   (compiling source file '/LinearGradient.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(119,52): warning C4244: 'argument': conversion from 'double' to '_Ty', possible loss of data
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(119,52): warning C4244:         with
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(119,52): warning C4244:         [
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(119,52): warning C4244:             _Ty=Gdiplus::REAL
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(119,52): warning C4244:         ]
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(119,52): warning C4244: 'argument': conversion from 'double' to '_Ty', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(119,52): warning C4244:         with
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(119,52): warning C4244:         [
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(119,52): warning C4244:             _Ty=Gdiplus::REAL
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\LinearGradient.cpp(119,52): warning C4244:         ]
   (compiling source file '/LinearGradient.cpp')
   
   Path.cpp
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(300,67): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(301,67): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Path.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(300,55): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(301,55): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Path.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(305,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(306,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/Path.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(306,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(307,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   (compiling source file '/Path.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(355,63): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(356,63): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Path.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(355,51): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(356,51): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Path.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(356,24): warning C4244: 'initializing': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(357,24): warning C4244: 'initializing': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Path.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(357,24): warning C4244: 'initializing': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(358,24): warning C4244: 'initializing': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Path.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(387,67): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(388,67): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Path.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(387,55): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(388,55): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Path.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(442,63): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(443,63): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Path.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(442,51): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(443,51): warning C4244: 'argument': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Path.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(443,24): warning C4244: 'initializing': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(444,24): warning C4244: 'initializing': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Path.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(444,24): warning C4244: 'initializing': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(445,24): warning C4244: 'initializing': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Path.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(604,44): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(607,44): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
   (compiling source file '/Path.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Path.cpp(606,51): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Path.cpp(609,51): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
   (compiling source file '/Path.cpp')
   
   Polyline.cpp
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Polyline.cpp(66,41): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Polyline.cpp(68,41): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
   (compiling source file '/Polyline.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Polyline.cpp(68,48): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Polyline.cpp(70,48): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
   (compiling source file '/Polyline.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Polyline.cpp(71,101): warning C4267: 'argument': conversion from 'size_t' to 'INT', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Polyline.cpp(73,101): warning C4267: 'argument': conversion from 'size_t' to 'INT', possible loss of data
   (compiling source file '/Polyline.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Polyline.cpp(72,101): warning C4267: 'argument': conversion from 'size_t' to 'INT', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Polyline.cpp(74,101): warning C4267: 'argument': conversion from 'size_t' to 'INT', possible loss of data
   (compiling source file '/Polyline.cpp')
   
   Rectangle.cpp
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Rectangle.cpp(50,41): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Rectangle.cpp(51,41): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
   (compiling source file '/Rectangle.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Rectangle.cpp(52,48): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Rectangle.cpp(53,48): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
   (compiling source file '/Rectangle.cpp')
   
   Render.cpp
   Shape.cpp
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(170,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(172,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file '/Shape.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(171,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(173,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file '/Shape.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(452,9): warning C4834: discarding return value of function with [[nodiscard]] attribute
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(463,9): warning C4834: discarding return value of function with [[nodiscard]] attribute
   (compiling source file '/Shape.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(457,9): warning C4834: discarding return value of function with [[nodiscard]] attribute
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(468,9): warning C4834: discarding return value of function with [[nodiscard]] attribute
   (compiling source file '/Shape.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(462,9): warning C4834: discarding return value of function with [[nodiscard]] attribute
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(473,9): warning C4834: discarding return value of function with [[nodiscard]] attribute
   (compiling source file '/Shape.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(468,9): warning C4834: discarding return value of function with [[nodiscard]] attribute
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(479,9): warning C4834: discarding return value of function with [[nodiscard]] attribute
   (compiling source file '/Shape.cpp')
   
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(700,103): warning C4244: 'argument': conversion from 'float' to 'INT', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xmemory(723,103): warning C4244: 'argument': conversion from 'float' to 'INT', possible loss of data
   (compiling source file '/Shape.cpp')
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(700,103):
-      the template instantiation context (the oldest one first) is
-          D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(281,20):
-          see reference to function template instantiation 'void std::vector<Gdiplus::Point,std::allocator<Gdiplus::Point>>::emplace_back<float&,float&>(float &,float &)' being compiled
-          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(858,24):
-          see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_one_at_back<float&,float&>(float &,float &)' being compiled
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xmemory(723,103):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Shape.cpp(285,19):
+  	see reference to function template instantiation 'void std::vector<Gdiplus::Point,std::allocator<Gdiplus::Point>>::emplace_back<float&,float&>(float &,float &)' being compiled
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\vector(862,24):
+  	see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_one_at_back<float&,float&>(float &,float &)' being compiled
           with
           [
               _Ty=Gdiplus::Point
           ]
-          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(776,20):
-          see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_back_with_unused_capacity<float&,float&>(float &,float &)' being compiled
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\vector(780,20):
+  	see reference to function template instantiation '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_back_with_unused_capacity<float&,float&>(float &,float &)' being compiled
           with
           [
               _Ty=Gdiplus::Point
           ]
-          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(794,27):
-          see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,float&,float&>(_Alloc &,_Objty *const ,float &,float &)' being compiled
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\vector(798,27):
+  	see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,float&,float&>(_Alloc &,_Objty *const ,float &,float &)' being compiled
           with
           [
               _Alloc=std::allocator<Gdiplus::Point>,
@@ -190,42 +191,42 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.3412
           ]
   
   Polygon.cpp
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Polygon.cpp(66,45): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Polygon.cpp(67,45): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
   (compiling source file '/Polygon.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Polygon.cpp(68,51): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Polygon.cpp(69,51): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
   (compiling source file '/Polygon.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Polygon.cpp(71,94): warning C4267: 'argument': conversion from 'size_t' to 'INT', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Polygon.cpp(72,94): warning C4267: 'argument': conversion from 'size_t' to 'INT', possible loss of data
   (compiling source file '/Polygon.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Polygon.cpp(72,96): warning C4267: 'argument': conversion from 'size_t' to 'INT', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Polygon.cpp(73,96): warning C4267: 'argument': conversion from 'size_t' to 'INT', possible loss of data
   (compiling source file '/Polygon.cpp')
   
   SVGDemo.cpp
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\SVGDemo.cpp(90,14): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\SVGDemo.cpp(90,14): warning C4244: 'return': conversion from 'WPARAM' to 'int', possible loss of data
   (compiling source file '/SVGDemo.cpp')
   
   SVGParser.cpp
   Text.cpp
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Text.cpp(9,88): warning C4244: 'initializing': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Text.cpp(9,88): warning C4244: 'initializing': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Text.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Text.cpp(9,94): warning C4244: 'initializing': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Text.cpp(9,94): warning C4244: 'initializing': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Text.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Text.cpp(50,10): warning C4244: '=': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Text.cpp(50,10): warning C4244: '=': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Text.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Text.cpp(51,10): warning C4244: '=': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Text.cpp(51,10): warning C4244: '=': conversion from 'double' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Text.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Text.cpp(109,41): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Text.cpp(109,41): warning C4244: 'argument': conversion from 'float' to 'BYTE', possible loss of data
   (compiling source file '/Text.cpp')
   
-D:\uni\code\oop\svg2\SVGDemo\SVGDemo\SVGDemo\Text.cpp(111,32): warning C4244: 'argument': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
+C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\SVGDemo\Text.cpp(111,32): warning C4244: 'argument': conversion from 'int' to 'Gdiplus::REAL', possible loss of data
   (compiling source file '/Text.cpp')
   
   ViewBox.cpp
   Generating Code...
-  SVGDemo.vcxproj -> D:\uni\code\oop\svg2\SVGDemo\SVGDemo\x64\Debug\SVGDemo.exe
+  SVGDemo.vcxproj -> C:\Users\DELL 5570\source\repos\Read-XML-files-using-rapidxml-gdiplus-cplusplus\SVGDemo\SVGDemo\x64\Debug\SVGDemo.exe

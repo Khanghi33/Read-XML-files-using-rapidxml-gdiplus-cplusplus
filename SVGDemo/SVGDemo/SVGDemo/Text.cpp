@@ -96,24 +96,38 @@ void TXT::setTextAnchor(string textAnchor)
 //	graphics.FillPath(&fillBrush, &path);
 //}
 
+// Draws the text content onto the given HDC using GDI+ graphics with styling options.
 VOID TXT::Draw(HDC hdc)
 {
+	// Initialize GDI+ Graphics object with the provided device context (HDC).
 	Graphics graphics(hdc);
+
+	// Get the singleton instance of the ViewBox class and apply the viewBox transformation.
 	ViewBox* v = ViewBox::getInstance();
 	v->applyViewBox(graphics);
+
+	// Apply any additional transformations specified for this text object.
 	applyTransform(graphics);
 
 	//Set up color and content to write
 	int* Fill = parseColor(getFill());
 	int* Stroke = parseColor(getStroke());
+
+	// Create a GDI+ Pen object for drawing the stroke, with opacity and stroke width.
 	Pen	pen(Color(stof(getStrokeOpacity()) * 255, Stroke[0], Stroke[1], Stroke[2]), stof(getStrokeWidth()));
+
+	// Define the font properties for the text.
 	FontFamily  fontFamily(L"Times New Roman");
 	Font        font(&fontFamily, textSize, FontStyleRegular, UnitPixel);
+
+	// Calculate the baseline offset for proper vertical alignment of text.
 	REAL baselineOffset = font.GetSize() / fontFamily.GetEmHeight(FontStyleRegular) * fontFamily.GetCellAscent(FontStyleRegular);
 	REAL baselineOffsetPixels = graphics.GetDpiY() / 72.0f * baselineOffset;
 
+	// Adjust the text position by accounting for the baseline offset.
 	PointF adjustedPos(x, y - static_cast<int>(baselineOffsetPixels + 0.5f));
 
+	// Initialize text rendering attributes.
 	PointF      pointF(x, y);
 	StringFormat gdisF = StringFormat::GenericTypographic();
 	//gdisF.SetLineAlignment(StringAlignmentCenter);
@@ -130,6 +144,8 @@ VOID TXT::Draw(HDC hdc)
 	graphics.SetTextRenderingHint(TextRenderingHintClearTypeGridFit);
 	graphics.SetSmoothingMode(SmoothingModeHighQuality);
 	graphics.SetPixelOffsetMode(PixelOffsetModeHalf);
+
+	// Handle text anchor alignment based on the "textAnchor" attribute.
 	if (textAnchor == "middle") gdisF.SetAlignment(StringAlignmentCenter);
 	else if (textAnchor == "start") gdisF.SetAlignment(StringAlignmentNear);
 	else if (textAnchor == "end") gdisF.SetAlignment(StringAlignmentFar);

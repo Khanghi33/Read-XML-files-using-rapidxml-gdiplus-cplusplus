@@ -215,6 +215,8 @@ Point2D::Point2D(int x)
 
 }
 */
+
+// Draws all child elements of the group by applying transformations and inheriting styling properties.
 VOID GROUP::Draw(HDC hdc)
 {
     /*ofstream fout("log.txt", ios::app);

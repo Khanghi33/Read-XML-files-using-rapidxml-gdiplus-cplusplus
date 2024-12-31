@@ -22,33 +22,43 @@ LinearGradient* LinearGradient::getInstance() {
 	return instance;
 }
 
+// Parses the given XML node representing a <linearGradient> element.
 void LinearGradient::parse(xml_node<>* node)
 {
+	// Pointer to the first attribute of the <linearGradient> node.
 	xml_attribute<>* firstAttribute = node->first_attribute();
 
+	// Get the singleton instance of the ViewBox class to retrieve viewBox dimensions.
 	ViewBox* v = ViewBox::getInstance();
 
-
+	// Initialize default gradient endpoints as the full viewBox dimensions.
 	PointF point1(v->getViewBoxWidth(), v->getViewBoxHeight());
 	PointF point2(v->getViewBoxWidth(), v->getViewBoxHeight());
+
 	string id;
 	bool gradientSpace = false;
 	vector<Color> gradientStopColors;
 	vector<REAL> gradientStopOffsets;
 	string transform = "";
+
+	// Iterate over all attributes of the <linearGradient> node.
 	while (firstAttribute != NULL) {
 		string attributeName(firstAttribute->name());
 		string attributeValue(firstAttribute->value());
+
+		// Store the unique id of the gradient.
 		if (attributeName == "id") id = attributeValue;
 
+		// Parse the x1 coordinate of the gradient's start point.
 		if (attributeName == "x1") 
 		{
 			if (attributeValue.find('%') != std::string::npos) {
-				point1.X = stof(attributeValue) * point1.X / 100.0;
+				point1.X = stof(attributeValue) * point1.X / 100.0;		// Convert percentage to absolute value.
 			}
-			else point1.X = stof(attributeValue);
+			else point1.X = stof(attributeValue);		// Directly convert to float.
 		}
 
+		// Parse the y1 coordinate of the gradient's start point.
 		if (attributeName == "y1") 
 		{
 			if (attributeValue.find('%') != std::string::npos) {
@@ -57,6 +67,7 @@ void LinearGradient::parse(xml_node<>* node)
 			else point1.Y = stof(attributeValue);
 		}
 
+		// Parse the x2 coordinate of the gradient's end point.
 		if (attributeName == "x2")
 		{
 			if (attributeValue.find('%') != std::string::npos) {
@@ -65,6 +76,7 @@ void LinearGradient::parse(xml_node<>* node)
 			else point2.X = stof(attributeValue);
 		}
 
+		// Parse the y2 coordinate of the gradient's end point.
 		if (attributeName == "y2")
 		{
 			if (attributeValue.find('%') != std::string::npos) {
@@ -72,9 +84,11 @@ void LinearGradient::parse(xml_node<>* node)
 			}
 			else point2.Y = stof(attributeValue);
 		}
+		// Parse the gradient transform attribute, if present.
 		if (attributeName == "gradientTransform") {
 			transform = attributeValue;
 		}
+		// Determine the gradient's coordinate system (userSpaceOnUse or objectBoundingBox).
 		if (attributeName == "gradientUnits") {
 			if (attributeValue == "userSpaceOnUse") gradientSpace = true;
 		}
@@ -85,6 +99,7 @@ void LinearGradient::parse(xml_node<>* node)
 	}
 	else userSpaceOnUse[id] = false;
 
+	// Process all child <stop> nodes of the <linearGradient> node.
 	xml_node<>* nodeChild = node->first_node();
 	while (nodeChild != NULL) {
 		string nodeName = nodeChild->name();
@@ -98,6 +113,8 @@ void LinearGradient::parse(xml_node<>* node)
 	//applyGradientTransform(*brush, transform);
 	//// Insert into the map
 	//colorMap.insert({ id, brush });
+
+	// Create a LinearGradientBrush if the gradient has valid stop colors and offsets.
 	if (!gradientStopColors.empty() && !gradientStopOffsets.empty()) {
 		LinearGradientBrush* brush = new LinearGradientBrush(
 			point1, point2, gradientStopColors.front(), gradientStopColors.back()
@@ -108,12 +125,18 @@ void LinearGradient::parse(xml_node<>* node)
 	}
 }
 
+// Parses a <stop> node and extracts its color and offset values.
 void LinearGradient::parseStop(xml_node<>* node, vector<Color>& gradientColors, vector<REAL>& gradientOffsets)
 {
+	// Pointer to the first attribute of the <stop> node.
 	xml_attribute<>* firstAttribute = node->first_attribute();
+
+	// Iterate over all attributes of the <stop> node.
 	while (firstAttribute != NULL) {
 		string attributeName(firstAttribute->name());
 		string attributeValue(firstAttribute->value());
+
+		// Parse the offset value of the stop.
 		if (attributeName == "offset") {
 			if (attributeValue.find('%') != std::string::npos) {
 				gradientOffsets.push_back(stof(attributeValue) / 100.0);
@@ -121,10 +144,12 @@ void LinearGradient::parseStop(xml_node<>* node, vector<Color>& gradientColors, 
 			else gradientOffsets.push_back(stof(attributeValue));
 		}
 		
+		// Parse the stop color if specified directly.
 		else if (attributeName == "stop-color") {
 			int* fill = parseColor(attributeValue);
 			gradientColors.push_back(Color(255, fill[0], fill[1], fill[2]));
 		}
+		// Parse the style attribute to extract stop-color information.
 		else if (attributeName == "style") {
 			std::regex regex(R"(([a-zA-Z\-]+):([^;]+);)");
 			string style = attributeValue;
