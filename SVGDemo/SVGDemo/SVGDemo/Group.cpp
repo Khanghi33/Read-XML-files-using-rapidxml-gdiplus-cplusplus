@@ -9,6 +9,9 @@ GROUP::GROUP(xml_node<>* node)
     ofstream fout("log.txt", ios::app);
     xml_attribute<>* firstAttribute = node->first_attribute();
     //Default constructor
+    /*
+    default constructor to declare the set attribute that match the class Group
+    */
     setStroke("");
     setFill("");
     setFillOpacity("1");
