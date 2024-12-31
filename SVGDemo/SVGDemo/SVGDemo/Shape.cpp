@@ -12,6 +12,7 @@ int* parseColor(string stroke) {
     std::transform(stroke.begin(), stroke.end(), stroke.begin(), ::tolower);
     int* Color = new int[3] { 255, 255, 255 };
     if (stroke == "none") return Color;
+    //each character stand for each meaning to draw or determine the exact color
     regex rgbRegex(R"(rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\))");
 
     // Regex for Hexadecimal color
@@ -160,6 +161,7 @@ int* parseColor(string stroke) {
         { "whitesmoke", "#F5F5F5" },
         { "yellow", "#FFFF00" },
         { "yellowgreen", "#9ACD32" }};
+        //declare all the possible color available if appear in svg file
     /*if (stroke == "") {
         Color[0] = Color[1] = Color[2] = 0;
         return Color;
@@ -188,6 +190,7 @@ int* parseColor(string stroke) {
         std::regex fillColorRegexShort(R"((#[A-Fa-f0-9]{3}))");
         std::smatch match;
         // Extract fill color
+        // if color is written in Hexa
         if (std::regex_search(stroke, match, fillColorRegex)) {
             fillColor = match[1]; // First capturing group
             unsigned int r, g, b;
@@ -249,6 +252,7 @@ bool checkGradientColor(string fill)
 }
 string getGradientId(string fill)
 {
+    //specify some of the character that work in svg
     std::regex pattern(R"(url\(#(\w+)\))");
     std::smatch match;
 
@@ -415,7 +419,11 @@ void Shape::applyTransform(Graphics& graphics)
             // Apply the matrix transform to the graphics object
             graphics.MultiplyTransform(&matrix);
         }
-
+        /*
+                    MATRIX  
+        IF  1 + 1 = 2 
+            3 + 1 = 2 + 2
+        */
         searchStart = match.suffix().first;
     }
 }
@@ -438,6 +446,9 @@ void Shape::parseStyle(string style)
 
 string removeSpace(const string& transform) {
     string newTransform = transform;
+    /*
+    sclae and rotate and translate are added attribute to the shape.
+    */
     regex rotation_pattern(R"(rotate\(\s*(-?\d*\.?\d+)\s*\))");
     regex translate_pattern(R"(translate\(\s*(-?\d+(?:\.\d+)?)\s*,?\s*(-?\d+(?:\.\d+)?)\s*\))");
     regex scale_pattern1(R"(scale\(\s*(-?\d*\.?\d+)\s*\))");

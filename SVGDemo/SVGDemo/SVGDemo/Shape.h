@@ -13,7 +13,7 @@
 #include <gdiplus.h>
 #include "ViewBox.h"
 #include "LinearGradient.h"
-
+//declare all the library involved in, using appropriate function to build the shape class suit for each class shape
 using namespace std;
 using namespace rapidxml;
 using namespace Gdiplus;
@@ -40,7 +40,7 @@ public:
 	void parseStyle(string style);
 	virtual VOID Draw(HDC) = 0;
 };
-
+// function using for shape
 int* parseColor(string stroke);
 bool checkGradientColor(string fill);
 string getGradientId(string fill);
