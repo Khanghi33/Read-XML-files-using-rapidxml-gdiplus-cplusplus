@@ -91,6 +91,7 @@ void Path::createGraphicsPath(GraphicsPath& graphicsPath)
         char command = it[0];
         std::replace(it.begin(), it.end(), ',', ' ');
         std::istringstream stream(it.substr(1)); // Skip the first character
+        //command by reading letters to execute the action
         if (command == 'C') {
             PointF point1, point2, point3;
 
@@ -300,7 +301,7 @@ void Path::createGraphicsPath(GraphicsPath& graphicsPath)
                     graphicsPath.AddArc(boundingRect, startAngle, sweepAngle);
                     return;
                 }
-
+                // path feature 
                 // Step 2: Transform endpoints to the ellipse coordinate system
                 double cosRotation = std::cos(DegreesToRadians(xAxisRotation));
                 double sinRotation = std::sin(DegreesToRadians(xAxisRotation));
@@ -562,8 +563,10 @@ void Path::createGraphicsPath(GraphicsPath& graphicsPath)
 //    std::istringstream(hexColor.substr(5, 2)) >> std::hex >> b;
 //    this->color = new Color(255, r, g, b);
 //    // Construct ARGB with full opacity (0xFF for alpha)
+//    int z;
+//    z = 2;
 //}
-
+//  
 std::vector<std::string> Path::getData()
 {
     return this->data;

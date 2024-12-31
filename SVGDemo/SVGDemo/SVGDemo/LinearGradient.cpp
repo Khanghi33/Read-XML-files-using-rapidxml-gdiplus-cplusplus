@@ -280,3 +280,5 @@ void applyGradientTransform(LinearGradientBrush& brush, string transform)
 		searchStart = match.suffix().first;
 	}
 }
+// matrix cread Gdi ++
+

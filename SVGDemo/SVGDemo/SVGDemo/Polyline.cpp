@@ -73,3 +73,4 @@ VOID POLYLINE::Draw(HDC hdc)
 	if (getStroke() != "none" && getStroke() != "") graphics.DrawLines(&pen, Points.data(), Points.size());
 	if (getFill() != "none" && getFill() != "") graphics.FillPolygon(&brush, Points.data(), Points.size());
 }
+//end plyline

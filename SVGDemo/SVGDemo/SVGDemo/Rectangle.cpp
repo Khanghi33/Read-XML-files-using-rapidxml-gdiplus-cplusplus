@@ -54,3 +54,7 @@ VOID RECTANGLES::Draw(HDC hdc)
 	if (getStroke() != "none" && getStroke() != "") graphics.DrawRectangle(&pen, x, y, width, height);
 	if (getFill() != "none" && getFill() != "") graphics.FillRectangle(&brush, x, y, width, height);
 }
+
+//rectangle.cpp
+
+

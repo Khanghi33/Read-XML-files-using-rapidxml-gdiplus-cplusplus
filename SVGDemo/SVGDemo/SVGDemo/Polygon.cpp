@@ -74,3 +74,4 @@ VOID POLYGON::Draw(HDC hdc)
 }
 //ahoy Stroke declared
 //attribute set to defalut and clear the edge
+//end polygon
