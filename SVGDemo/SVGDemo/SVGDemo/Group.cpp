@@ -201,6 +201,20 @@ GROUP::~GROUP()
 //    return newTransform;
 //}
 
+/*
+Point2D::Point2D()
+{
+    cout << "Point2D::Default Cons" << endl;
+
+}
+
+Point2D::Point2D(int x)
+{
+    this->x = x;
+    cout << "Point2D::2nd Cons: x = " << this->x << endl;
+
+}
+*/
 VOID GROUP::Draw(HDC hdc)
 {
     /*ofstream fout("log.txt", ios::app);
