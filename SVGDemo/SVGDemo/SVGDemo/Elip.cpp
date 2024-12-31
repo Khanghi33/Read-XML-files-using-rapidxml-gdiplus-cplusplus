@@ -53,7 +53,9 @@ VOID ELIP::Draw(HDC hdc)
 	if (getStroke() != "none" && getStroke() != "") graphics.DrawEllipse(&pen, x - rx, y - ry, rx * 2, ry * 2);
 	/*if (getFill() != "none" && getFill() != "") graphics.FillEllipse(&brush, x - rx, y - ry, rx * 2, ry * 2);*/
 	graphics.FillEllipse(&brush, x - rx, y - ry, rx * 2, ry * 2);
-
+	/*
+	graphics.FillEllipse is determined to fullfill the empty space inside the ellipse.
+	*/
 	if (getStroke() != "none" && getStroke() != "") graphics.DrawEllipse(&pen, x - rx, y - ry, rx * 2, ry * 2);
 	/*if (getFill() != "none" && getFill() != "") graphics.FillEllipse(&brush, cx - r, cy - r, d, d);*/
 	if (getGradientId(getFill()) != "") {
@@ -72,7 +74,11 @@ VOID ELIP::Draw(HDC hdc)
 		if (gradientBrush != nullptr) {
 			graphics.FillEllipse(gradientBrush, x - rx, y - ry, rx * 2, ry * 2);
 		}
-
+		/*
+		fill ellipse if gradientBrush is not empty
+		zzzzzzzzzzzzzzzzzzz
+		if not then cleaning up
+		*/
 		// Clean up if necessary (if getBrush dynamically allocates the brush)
 		delete gradientBrush;
 	}

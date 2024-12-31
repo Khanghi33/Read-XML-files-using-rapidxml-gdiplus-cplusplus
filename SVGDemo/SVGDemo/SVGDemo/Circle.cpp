@@ -79,7 +79,10 @@ VOID CIRCLE::Draw(HDC hdc)
 
 		// Pass the bounds to the getBrush method
 		LinearGradientBrush* gradientBrush = gradient->getBrush(id, &bounds);
-
+		/* linearGradientBrush give brush to gradient 
+		increse the accuracy of the data
+		learning and finding out the way to execute the thing in data.
+		*/
 		// Fill the path with the gradient brush
 		if (gradientBrush != nullptr) {
 			graphics.FillEllipse(gradientBrush, cx - r, cy - r, d, d);
@@ -87,6 +90,9 @@ VOID CIRCLE::Draw(HDC hdc)
 
 		// Clean up if necessary (if getBrush dynamically allocates the brush)
 		delete gradientBrush;
+
 	}
+	// 
 	else graphics.FillEllipse(&brush, cx - r, cy - r, d, d);
 }
+// graphics ellpise brush 
